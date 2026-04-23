@@ -5,7 +5,10 @@ export const site = {
     "A minimal academic portfolio and research notebook for Tata Vishnu Rao.",
   url: "https://tatavishnu.github.io",
   profileImage: "/images/profile.jpg",
-  homeHeading: "Hi there, I’m Vishnu. I work on bottlenecks in modern AI infrastructure.",
+  homeHeading: [
+    "Hi there, I’m Vishnu.",
+    "I work on bottlenecks in modern AI infrastructure."
+  ],
   bio: [
     "I am a student focused on understanding and solving bottlenecks in current AI infrastructure. My work and interests center on Inference, ML systems engineering, and GPU programming.",
     "I am especially drawn to the low-level and systems-side questions behind performance, scalability, and efficient deployment in modern AI."

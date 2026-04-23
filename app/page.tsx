@@ -9,7 +9,11 @@ export default function HomePage() {
       <section className="grid gap-11 lg:grid-cols-[minmax(0,40rem)_248px] lg:items-start lg:justify-between">
         <div>
           <h1 className="display-heading max-w-2xl text-[1.55rem] leading-[1.02] tracking-[-0.03em] sm:text-[1.9rem]">
-            {site.homeHeading}
+            {site.homeHeading.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </h1>
 
           <div className="body-copy mt-5 max-w-[39rem]">
