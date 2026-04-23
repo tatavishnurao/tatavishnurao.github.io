@@ -15,7 +15,7 @@ export const site = {
     author: "Vishnu Rao"
   },
   closing:
-    "Here I collect research notes, selected projects, and occasional essays on machine learning, systems, and the craft of building tools for inquiry. Thank you for visiting.",
+    "Here I publish my research notes, selected projects, and occasional essays on machine learning, systems, and the craft of building tools for inquiry. Thank you for visiting.",
   links: [
     { label: "GitHub", href: "https://github.com/tatavishnurao" },
     { label: "X", href: "https://x.com/tatavishnurao" },
