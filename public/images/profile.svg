@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="1120" viewBox="0 0 880 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Profile image placeholder</title>
+  <desc id="desc">A restrained abstract portrait placeholder for an academic homepage.</desc>
+  <rect width="880" height="1120" fill="#e9e2d7"/>
+  <rect x="54" y="54" width="772" height="1012" fill="#f7f3ec" stroke="#d8d0c4" stroke-width="4"/>
+  <circle cx="440" cy="392" r="154" fill="#c7b9a7"/>
+  <path d="M210 930c36-198 150-298 230-298s194 100 230 298" fill="#53687e" opacity=".72"/>
+  <path d="M285 888c42-103 96-154 155-154s113 51 155 154" fill="#fbfaf7" opacity=".36"/>
+  <text x="440" y="1010" text-anchor="middle" fill="#6f6a62" font-family="Georgia, serif" font-size="34">Replace with portrait</text>
+</svg>
