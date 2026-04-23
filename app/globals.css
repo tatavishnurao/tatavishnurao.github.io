@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fbfaf7;
+  --color-ink: #24211d;
+  --color-muted: #766f65;
+  --color-soft: #e5ded2;
+  --color-accent: #48616b;
+  --font-serif: "Newsreader", "Source Serif 4", "New York", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
+}
+
+:root {
+  color-scheme: light;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(72, 97, 107, 0.055), transparent 31rem),
+    linear-gradient(180deg, #fbfaf7 0%, #f7f2ea 100%);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga", "calt";
+}
+
+::selection {
+  background: rgba(79, 104, 114, 0.18);
+}
+
+a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 0.06em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-muted) 88%, var(--color-ink));
+}
+
+.display-heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: var(--color-ink);
+}
+
+.body-copy {
+  font-family: var(--font-sans);
+  font-size: clamp(1.01rem, 0.98rem + 0.16vw, 1.08rem);
+  line-height: 1.86;
+  color: color-mix(in srgb, var(--color-ink) 86%, transparent);
+}
+
+.body-copy p + p {
+  margin-top: 1.45rem;
+}
+
+.quiet-link {
+  text-decoration-line: none;
+  transition: color 160ms ease, text-decoration-color 160ms ease, border-color 160ms ease;
+}
+
+.quiet-link:hover,
+.quiet-link:focus-visible {
+  color: var(--color-accent);
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 54%, transparent);
+  outline: none;
+}
+
+.article {
+  font-family: var(--font-sans);
+  font-size: clamp(1.01rem, 0.98rem + 0.15vw, 1.07rem);
+  line-height: 1.88;
+}
+
+.article h2 {
+  margin-top: 3rem;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-serif);
+  font-size: 1.62rem;
+  line-height: 1.16;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.article h3 {
+  margin-top: 2.15rem;
+  margin-bottom: 0.7rem;
+  font-family: var(--font-serif);
+  font-size: 1.24rem;
+  line-height: 1.28;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.article p {
+  margin: 1.25rem 0;
+  color: color-mix(in srgb, var(--color-ink) 84%, transparent);
+  line-height: 1.9;
+}
+
+.article blockquote {
+  margin: 2.35rem 0;
+  border-left: 1px solid color-mix(in srgb, var(--color-accent) 52%, var(--color-soft));
+  padding: 0.25rem 0 0.25rem 1.4rem;
+  color: var(--color-muted);
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.article pre {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--color-soft) 88%, white);
+  background: rgba(255, 255, 255, 0.58);
+  padding: 1rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.article code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.article p code {
+  border: 1px solid color-mix(in srgb, var(--color-soft) 88%, white);
+  background: rgba(255, 255, 255, 0.62);
+  padding: 0.08rem 0.28rem;
+}
+
+.article a {
+  color: var(--color-accent);
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 42%, transparent);
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.article a:hover {
+  text-decoration-color: currentColor;
+}
+
+.math {
+  white-space: nowrap;
+  font-family: "Times New Roman", Times, serif;
+  color: #34302a;
+}
