@@ -14,8 +14,8 @@ export const site = {
     "This is my public engineering notebook: experiments that worked, measurements that changed my mind, and careful explanations of the bottlenecks beneath modern models."
   ],
   quote: {
-    text: "A benchmark is useful only when it changes what you build next.",
-    author: "Working principle"
+    text: "There has never been a better time than now.",
+    author: "Vishnu Rao"
   },
   closing:
     "Currently exploring KV-cache compression, memory retrieval, GPU kernels, and Rust for performance-critical infrastructure.",

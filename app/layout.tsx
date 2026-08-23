@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Newsreader } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
@@ -7,13 +7,7 @@ import { site } from "@/content/site";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -60,7 +54,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${newsreader.variable}`}>
+      <body className={inter.variable}>
         <Navbar />
         <main>{children}</main>
         <Footer />
