@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/Container";
 import { site } from "@/content/site";
 import { projects } from "@/content/projects";
@@ -9,22 +10,41 @@ export default function HomePage() {
 
   return (
     <Container className="pt-16 sm:pt-24">
-      <section className="max-w-[48rem]">
-        <p className="eyebrow">AI infrastructure · Hyderabad, India</p>
-        <h1 className="display-heading mt-6 max-w-4xl text-[3rem] leading-[0.96] sm:text-[5.2rem]">
+      <section className="grid gap-12 lg:grid-cols-[minmax(0,48rem)_18rem] lg:items-center lg:justify-between lg:gap-10">
+        <div>
+          <p className="eyebrow">AI infrastructure · Hyderabad, India</p>
+          <h1 className="display-heading mt-6 max-w-4xl text-[3rem] leading-[0.96] sm:text-[5.2rem]">
             {site.homeHeading.map((line) => (
               <span key={line} className="block">
                 {line}
               </span>
             ))}
-        </h1>
-        <div className="body-copy mt-9 max-w-[43rem] text-[1.08rem] sm:text-[1.17rem]">
-          {site.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </h1>
+          <div className="body-copy mt-9 max-w-[43rem] text-[1.08rem] sm:text-[1.17rem]">
+            {site.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link className="button-primary" href="/projects">Explore projects <span aria-hidden="true">→</span></Link>
+            <Link className="button-secondary" href="/blog">Read field notes</Link>
+          </div>
         </div>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link className="button-primary" href="/projects">Explore projects <span aria-hidden="true">→</span></Link>
-          <Link className="button-secondary" href="/blog">Read field notes</Link>
-        </div>
+
+        <figure className="mx-auto w-full max-w-[18rem] lg:mx-0 lg:justify-self-end">
+          <div className="overflow-hidden rounded-2xl border border-soft bg-panel p-2 shadow-[0_22px_60px_rgba(20,24,20,0.12)]">
+            <Image
+              src={site.profileImage}
+              alt={`Portrait of ${site.name}`}
+              width={880}
+              height={1320}
+              priority
+              className="aspect-[2/3] w-full rounded-xl object-cover object-top grayscale-[0.1]"
+            />
+          </div>
+          <figcaption className="mt-4 flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+            Building from Hyderabad
+          </figcaption>
+        </figure>
       </section>
 
       <section className="section-rule mt-24 sm:mt-32">
