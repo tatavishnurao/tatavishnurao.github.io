@@ -12,17 +12,27 @@
   --font-mono: "SF Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", monospace;
 }
 
+:root[data-theme="dark"] {
+  --color-paper: #111411;
+  --color-panel: #1a1f1b;
+  --color-ink: #edf0e9;
+  --color-muted: #a2aa9f;
+  --color-soft: #303830;
+  --color-accent: #7fbea2;
+}
+
 @layer base {
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background:
-      radial-gradient(circle at 84% 4%, rgba(40, 95, 76, 0.07), transparent 27rem),
+      radial-gradient(circle at 84% 4%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 27rem),
       var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
+    transition: background-color 180ms ease, color 180ms ease;
   }
   ::selection { background: rgba(40, 95, 76, 0.18); }
   a { color: inherit; }
@@ -95,6 +105,26 @@
   .article code { border-radius: 0.3rem; background: var(--color-panel); padding: 0.12rem 0.35rem; font-family: var(--font-mono); font-size: 0.87em; }
   .article pre { margin: 1.8rem 0; overflow-x: auto; border-radius: 0.75rem; background: var(--color-ink); padding: 1rem; color: var(--color-paper); }
   .article pre code { background: transparent; padding: 0; }
+  .header-icon {
+    display: inline-flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: var(--color-muted);
+    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+  .header-icon svg { width: 1rem; height: 1rem; }
+  .header-icon:hover, .header-icon:focus-visible { background: var(--color-panel); color: var(--color-ink); outline: none; transform: translateY(-1px); }
+  .sun-icon { display: none; }
+  .moon-icon { display: block; }
+  :root[data-theme="dark"] .sun-icon { display: block; }
+  :root[data-theme="dark"] .moon-icon { display: none; }
+}
+
+:root[data-theme="dark"] .project-card {
+  background: color-mix(in srgb, var(--color-panel) 72%, transparent);
 }
 
 @media (max-width: 760px) {
