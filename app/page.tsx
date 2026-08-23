@@ -40,9 +40,11 @@ export default function HomePage() {
               className="aspect-[2/3] w-full rounded-xl object-cover object-top grayscale-[0.1]"
             />
           </div>
-          <figcaption className="mt-4 flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-            Building from Hyderabad
+          <blockquote className="mt-5 border-l border-accent/55 pl-4 font-serif text-[1.02rem] font-medium leading-6 tracking-[-0.025em] text-ink/85">
+            “{site.quote.text}”
+          </blockquote>
+          <figcaption className="mt-2 pl-4 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-muted">
+            — {site.quote.author}
           </figcaption>
         </figure>
       </section>
