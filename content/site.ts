@@ -1,28 +1,27 @@
 export const site = {
-  name: "Tata Vishnu Rao",
-  shortTitle: "Research Notebook",
+  name: "Vishnu Vardhan Rao",
+  shortTitle: "Systems Notebook",
   description:
-    "A minimal academic portfolio and research notebook for Tata Vishnu Rao.",
-  url: "https://tatavishnu.github.io",
+    "Notes and experiments on GPU kernels, inference systems, distributed systems, and memory for AI agents.",
+  url: "https://tatavishnurao.github.io",
   profileImage: "/images/profile.jpg",
   homeHeading: [
-    "Hi there, I’m Vishnu.",
-    "I work on bottlenecks in modern AI infrastructure."
+    "I build and measure",
+    "the systems beneath AI."
   ],
   bio: [
-    "I am a student focused on understanding and solving bottlenecks in current AI infrastructure. My work and interests center on Inference, ML systems engineering, and GPU programming.",
-    "I am especially drawn to the low-level and systems-side questions behind performance, scalability, and efficient deployment in modern AI."
+    "I’m Vishnu, a systems-oriented AI engineer and computer science student in Hyderabad. I work across inference, GPU programming, distributed systems, and long-term memory for agents.",
+    "This is my public engineering notebook: experiments that worked, measurements that changed my mind, and careful explanations of the bottlenecks beneath modern models."
   ],
   quote: {
-    text: "There has never been a better time than now.",
-    author: "Vishnu Rao"
+    text: "A benchmark is useful only when it changes what you build next.",
+    author: "Working principle"
   },
   closing:
-    "Here I publish my research notes, selected projects, and occasional essays on machine learning, systems, and the craft of building tools for inquiry. Thank you for visiting.",
+    "Currently exploring KV-cache compression, memory retrieval, GPU kernels, and Rust for performance-critical infrastructure.",
   links: [
     { label: "GitHub", href: "https://github.com/tatavishnurao" },
     { label: "X", href: "https://x.com/tatavishnurao" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/tatavishnurao/" },
-    { label: "Gmail", href: "mailto:tatavishnurao@gmail.com", value: "tatavishnurao@gmail.com" }
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/tatavishnurao/" }
   ]
 };

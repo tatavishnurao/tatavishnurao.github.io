@@ -4,8 +4,8 @@ import { Container } from "@/components/Container";
 import { getPostsByYear } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Personal Blog",
-  description: "Personal blog by Tata Vishnu Rao."
+  title: "Field Notes",
+  description: "Engineering notes on inference, GPUs, distributed systems, and agent memory."
 };
 
 export default function BlogPage() {
@@ -14,12 +14,12 @@ export default function BlogPage() {
   return (
     <Container className="pt-12 sm:pt-16">
       <header className="max-w-[40rem]">
-        <p className="eyebrow">Personal Blog</p>
-        <h1 className="display-heading mt-4 text-[2.25rem] sm:text-[2.8rem]">
-          Notes, essays, and working thoughts
+        <p className="eyebrow">Field notes</p>
+        <h1 className="display-heading mt-4 text-[2.8rem] sm:text-[4.5rem]">
+          Learning in public, with measurements.
         </h1>
         <div className="body-copy mt-6">
-          <p>A future home for notes, essays, and technical reflections.</p>
+          <p>Architecture notes, implementation reports, benchmark audits, and the occasional argument about how AI infrastructure should be measured.</p>
         </div>
       </header>
 
