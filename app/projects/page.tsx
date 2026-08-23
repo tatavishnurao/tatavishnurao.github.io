@@ -12,7 +12,7 @@ export default function ProjectsPage() {
     <Container className="pt-12 sm:pt-16">
       <section>
         <p className="eyebrow">Selected work</p>
-        <h1 className="display-heading mt-4 max-w-3xl text-[2.8rem] sm:text-[4.5rem]">
+        <h1 className="display-heading mt-4 max-w-3xl text-[2.25rem] leading-[1.02] sm:text-[3.4rem] lg:text-[4rem]">
           Systems, kernels, and experiments.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">Each project starts with a bottleneck and ends with measurements, validation, and a clearer next question.</p>
