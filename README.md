@@ -1,3 +1,3 @@
-# Tata Vishnu Rao Academic Portfolio
+# Vishnu Vardhan Rao — Systems Notebook
 
-Minimal academic/research portfolio site for `tatavishnu.github.io`, built with Next.js App Router, TypeScript, and Tailwind CSS. The site is designed for GitHub Pages user-site deployment at the repository root, not under a project subpath.
+Technical portfolio and public engineering notebook for `tatavishnurao.github.io`, built with Next.js App Router, TypeScript, and Tailwind CSS. Content focuses on GPU kernels, inference systems, distributed systems, and agent memory.
