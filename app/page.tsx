@@ -2,11 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { site } from "@/content/site";
-import { getAllPosts, formatLongDate, readingTime } from "@/lib/blog";
 
 export default function HomePage() {
-  const posts = getAllPosts().slice(0, 3);
-
   return (
     <Container className="pt-16 sm:pt-24">
       <section className="grid gap-12 lg:grid-cols-[minmax(0,48rem)_18rem] lg:items-center lg:justify-between lg:gap-10">
@@ -55,27 +52,10 @@ export default function HomePage() {
       </section>
 
       <section className="section-rule mt-20 sm:mt-28">
-        <div className="section-heading-row">
-          <div><p className="eyebrow">Latest field notes</p><h2 className="section-title">Measurements, mechanisms, mistakes.</h2></div>
-          <Link className="quiet-link" href="/blog">Archive →</Link>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted">Two pinned repositories. One simple index.</p>
+          <Link className="quiet-link" href="/projects">View pinned projects →</Link>
         </div>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-soft bg-soft md:grid-cols-3">
-          {posts.map((post) => (
-            <article key={post.slug} className="note-card">
-              <p className="note-meta">{formatLongDate(post.date)} · {readingTime(post.body)}</p>
-              <h3 className="mt-5 font-serif text-[1.55rem] font-semibold leading-[1.08] tracking-[-0.035em]">
-                <Link href={`/blog/${post.slug}`} className="card-link">{post.title}</Link>
-              </h3>
-              <p className="mt-4 text-[0.94rem] leading-7 text-muted">{post.excerpt}</p>
-              <Link href={`/blog/${post.slug}`} className="mt-8 inline-block font-sans text-sm font-semibold text-accent">Read note →</Link>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="my-24 rounded-2xl border border-soft bg-panel px-6 py-8 sm:my-32 sm:px-9">
-        <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-accent">Now</p>
-        <p className="mt-4 max-w-3xl font-serif text-[1.45rem] leading-[1.4] tracking-[-0.025em] text-ink">{site.closing}</p>
       </section>
     </Container>
   );
