@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { site } from "@/content/site";
-import { projects } from "@/content/projects";
 import { getAllPosts, formatLongDate, readingTime } from "@/lib/blog";
 
 export default function HomePage() {
@@ -13,14 +12,14 @@ export default function HomePage() {
       <section className="grid gap-12 lg:grid-cols-[minmax(0,48rem)_18rem] lg:items-center lg:justify-between lg:gap-10">
         <div>
           <p className="eyebrow">AI infrastructure · Hyderabad, India</p>
-          <h1 className="display-heading mt-6 max-w-4xl text-[3rem] leading-[0.96] sm:text-[5.2rem]">
+          <h1 className="display-heading mt-6 max-w-4xl text-[2.25rem] leading-[1] sm:text-[3.7rem] lg:text-[4.35rem]">
             {site.homeHeading.map((line) => (
               <span key={line} className="block">
                 {line}
               </span>
             ))}
           </h1>
-          <div className="body-copy mt-9 max-w-[43rem] text-[1.08rem] sm:text-[1.17rem]">
+          <div className="body-copy mt-8 max-w-[43rem] text-[1rem] sm:text-[1.08rem]">
             {site.bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -46,30 +45,16 @@ export default function HomePage() {
           <figcaption className="mt-2 pl-4 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-muted">
             — {site.quote.author}
           </figcaption>
+          <section className="mt-8 border-t border-soft pt-5" aria-labelledby="skills-heading">
+            <h2 id="skills-heading" className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-accent">Skills</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {site.skills.map((skill) => <li key={skill} className="skill-pill">{skill}</li>)}
+            </ul>
+          </section>
         </figure>
       </section>
 
-      <section className="section-rule mt-24 sm:mt-32">
-        <div className="section-heading-row">
-          <div><p className="eyebrow">Selected systems</p><h2 className="section-title">Built to answer a question.</h2></div>
-          <Link className="quiet-link" href="/projects">All projects →</Link>
-        </div>
-        <div className="mt-10 divide-y divide-soft">
-          {projects.slice(0, 3).map((project, index) => (
-            <a key={project.href} href={project.href} target="_blank" rel="noreferrer" className="project-row group">
-              <span className="project-index">0{index + 1}</span>
-              <span className="min-w-0">
-                <span className="project-title">{project.title}</span>
-                <span className="mt-2 block max-w-2xl text-[0.96rem] leading-7 text-muted">{project.description}</span>
-              </span>
-              <span className="project-result">{project.result}</span>
-              <span className="row-arrow" aria-hidden="true">↗</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-rule mt-24 sm:mt-32">
+      <section className="section-rule mt-20 sm:mt-28">
         <div className="section-heading-row">
           <div><p className="eyebrow">Latest field notes</p><h2 className="section-title">Measurements, mechanisms, mistakes.</h2></div>
           <Link className="quiet-link" href="/blog">Archive →</Link>

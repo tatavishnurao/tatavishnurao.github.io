@@ -19,6 +19,14 @@ export const site = {
   },
   closing:
     "Currently exploring KV-cache compression, memory retrieval, GPU kernels, and Rust for performance-critical infrastructure.",
+  skills: [
+    "GPU kernels",
+    "LLM inference",
+    "Rust / CUDA",
+    "Distributed systems",
+    "Agent memory",
+    "Performance engineering"
+  ],
   links: [
     { label: "GitHub", href: "https://github.com/tatavishnurao" },
     { label: "X", href: "https://x.com/tatavishnurao" },
