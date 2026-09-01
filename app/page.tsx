@@ -2,8 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { site } from "@/content/site";
+import { projects } from "@/content/projects";
 
 export default function HomePage() {
+  const githubProjects = projects.slice(0, 3);
+
   return (
     <Container className="archive-shell py-10 sm:py-16">
       <div className="archive-grid">
@@ -59,11 +62,28 @@ export default function HomePage() {
               <p className="feature-caption">LATENTPAGEDATTENTION-RS · RUST / CUTILE / GPU</p>
               <h2>Making the KV cache smaller without pretending memory is free.</h2>
             </Link>
-            <a href="https://github.com/tatavishnurao" target="_blank" rel="noreferrer" className="github-panel">
-              <p className="feature-caption">GITHUB · @TATAVISHNURAO</p>
-              <div className="contribution-grid" aria-hidden="true">{Array.from({length: 84}, (_, i) => <i key={i} style={{opacity: [0.18,0.32,0.48,0.7,0.9][(i * 7 + 3) % 5]}} />)}</div>
-              <div className="github-stats"><span>systems research</span><span>→ profile</span></div>
-            </a>
+            <aside className="github-panel" aria-label="GitHub profile viewer">
+              <div className="github-heading">
+                <p className="feature-caption">GITHUB / PROFILE</p>
+                <a href="https://github.com/tatavishnurao" target="_blank" rel="noreferrer" className="github-handle">
+                  @tatavishnurao <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+              <p className="github-summary">Selected systems, experiments, and working notes.</p>
+              <ul className="github-repositories" aria-label="Selected GitHub repositories">
+                {githubProjects.map((project) => (
+                  <li key={project.href}>
+                    <a href={project.href} target="_blank" rel="noreferrer">
+                      <span>{project.title}</span>
+                      <span>↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a href="https://github.com/tatavishnurao" target="_blank" rel="noreferrer" className="github-footer">
+                <span>{projects.length} selected repositories</span><span>Open profile →</span>
+              </a>
+            </aside>
           </section>
 
           <p className="archive-closing">This is where I keep the work that survives contact with a benchmark. <Link href="/blog">Read the notes →</Link></p>
