@@ -17,7 +17,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-soft/75 bg-paper/90 backdrop-blur-xl">
-      <Container className="flex flex-wrap items-center justify-between gap-x-5 gap-y-4 py-4 sm:py-5">
+      <Container className="flex items-center justify-between gap-4 py-3 sm:py-4">
         <Link
           href="/"
           className="font-serif text-lg font-semibold tracking-[-0.035em] text-ink transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:text-xl"
@@ -25,8 +25,8 @@ export function Navbar() {
           Vishnu <span className="text-accent">/</span> systems
         </Link>
         <div className="flex items-center gap-3 sm:gap-5">
-          <nav aria-label="Primary navigation">
-            <ul className="flex flex-wrap justify-end gap-x-3 gap-y-2 font-sans text-[0.76rem] text-muted sm:gap-x-6 sm:text-[0.88rem]">
+          <nav className="hidden md:block" aria-label="Primary navigation">
+            <ul className="flex items-center gap-x-6 font-sans text-[0.88rem] text-muted">
             {navItems.map((item) => {
               const isActive =
                 item.href.startsWith("/") &&
