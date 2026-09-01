@@ -30,7 +30,7 @@ function toggleTheme() {
 
 export function HeaderActions() {
   return (
-    <div className="flex items-center gap-1 border-l border-soft pl-3 sm:gap-2 sm:pl-5">
+    <div className="flex items-center gap-1 sm:gap-2 sm:border-l sm:border-soft sm:pl-5">
       {site.links.map((link) => (
         <a
           key={link.label}
@@ -39,7 +39,7 @@ export function HeaderActions() {
           rel="noreferrer"
           aria-label={`${link.label} profile`}
           title={link.label}
-          className="header-icon"
+          className="header-icon hidden sm:inline-flex"
         >
           {socialIcons[link.label]}
         </a>
