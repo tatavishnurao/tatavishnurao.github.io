@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tata Vishnu Rao</title>
+    <meta name="description" content="ML systems, GPU computing, LLM inference, distributed systems, and robotics.">
+    <link rel="canonical" href="https://tatavishnurao.github.io/">
+    <meta property="og:title" content="Tata Vishnu Rao">
+    <meta property="og:description" content="ML systems, GPU computing, LLM inference, distributed systems, and robotics.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tatavishnurao.github.io/">
+    <meta property="og:image" content="https://tatavishnurao.github.io/assets/profile/profile.jpg">
+    <meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main>
+      <div id="dhead" class="container">
+        <div class="row">
+          <div id="dpic">
+            <img src="assets/profile/profile.jpg" alt="Tata Vishnu Rao">
+          </div>
+          <div id="ddesc">
+            <h1>Tata Vishnu Rao</h1>
+            <h2>I like making AI systems go faster 🧠⚙️🔥</h2>
+            <div class="links" aria-label="links">
+              <a href="https://github.com/tatavishnurao">github</a><span>·</span>
+              <a href="https://www.linkedin.com/in/tatavishnurao/">linkedin</a><span>·</span>
+              <a href="https://x.com/tatavishnurao">x</a><span>·</span>
+              <a href="mailto:tatavishnurao@gmail.com">email</a><span>·</span>
+              <a href="assets/resume.pdf">resume</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div id="history" class="container">
+        <div class="entry row">
+          <div class="timespan">2026 -</div>
+          <div class="ico"><div class="entry-dot"></div><img src="assets/projects/latent-paged-attention.svg" alt=""></div>
+          <div class="desc">
+            I am currently working on ML systems, GPU computing, LLM inference, distributed systems, Rust/C++, CUDA, and robotics software. My most developed public project is <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs">LatentPagedAttention-rs</a>, a Rust, Python, and cuTile research prototype for studying paged latent-cache decode attention on an RTX 4060.
+            <span class="sub">The work is a controlled GPU systems experiment, not a production serving runtime or complete model integration.</span>
+          </div>
+        </div>
+
+        <div class="entry row">
+          <div class="timespan">2026 -</div>
+          <div class="ico"><div class="entry-dot"></div><img src="assets/projects/signalflow.svg" alt=""></div>
+          <div class="desc">
+            I have also been building small systems experiments around streaming audio features, evidence-first review pipelines, vector-search evaluation, and source-verified KV-cache observability. I try to keep claims close to tests, benchmarks, and reproducible artifacts.
+          </div>
+        </div>
+
+        <div class="entry row">
+          <div class="timespan">2023 - 2027</div>
+          <div class="ico"><div class="entry-dot"></div><img src="assets/profile/profile.svg" alt=""></div>
+          <div class="desc">
+            B.Tech in Computer Science and Engineering at Anurag University. Based in Hyderabad, India.
+          </div>
+        </div>
+      </div>
+
+      <section id="bio" class="container section">
+        <div class="ctitle">bio</div>
+        <p>Tata Vishnu Rao is a computer science student working on ML systems and AI infrastructure. His current work is systems-oriented: LLM inference, GPU execution, cache behavior, distributed systems, Rust/C++ software, and reproducible evaluation. He is especially interested in the boundary between model behavior and hardware constraints: memory hierarchy, paging structures, kernel design, and serving-time trade-offs. A secondary direction is robotics software and embodied AI, where perception, control, and systems reliability meet.</p>
+      </section>
+
+      <section id="selected-research" class="container section">
+        <div class="ctitle">selected research</div>
+        <div class="research-item">
+          <div class="research-title"><a href="https://github.com/tatavishnurao/LatentPagedAttention-rs">LatentPagedAttention-rs</a></div>
+          <div class="research-venue">2026</div>
+          <div class="research-authors">A Rust + GPU research prototype studying paged latent-cache decode attention and the relationship between cache compression, GPU execution, cache residency, paging structures, and kernel design. The repository reports a controlled synthetic formulation on an RTX 4060 and frames the result as a memory-compute trade-off, not a serving speedup claim.</div>
+          <span class="paper-links"><a href="https://github.com/tatavishnurao/LatentPagedAttention-rs">[github]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/ARCHITECTURE.md">[architecture]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/04_benchmark_methodology.md">[benchmarks]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/FINAL_REPORT.md">[technical report]</a></span>
+        </div>
+      </section>
+
+      <section id="featured-work" class="container section">
+        <div class="ctitle">featured work</div>
+        <ul class="work-list">
+          <li><span class="date">2026</span><a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/releases">LatentPagedAttention-rs v0.1.1</a> — correctness-first release around paged latent-cache attention experiments.</li>
+          <li><span class="date">2026</span><a href="https://github.com/tatavishnurao/RealKV-Serve">RealKV-Serve</a> — milestone-one compatibility and observability harness for the TensorRT-LLM paged KV-cache lifecycle on a consumer RTX GPU.</li>
+        </ul>
+      </section>
+
+      <div class="band">
+        <section id="featured-writing" class="container section">
+          <div class="ctitle">featured writing</div>
+          <p>Implementation notes and technical reports. These are meant to preserve the engineering path: what was built, what was measured, and what the result does not claim.</p>
+          <ul class="writing-list">
+            <li><span class="date">Aug 2026</span><a href="content/notes/latent-paged-attention-rtx-4060.md">Latent paged attention on a laptop GPU</a></li>
+            <li><span class="date">Jul 2026</span><a href="content/notes/real-time-log-mel-rust.md">Building a real-time-capable log-Mel frontend in Rust</a></li>
+            <li><span class="date">2026</span><a href="content/notes/evaluating-agent-memory-retrieval.md">Evaluating agent-memory retrieval</a></li>
+          </ul>
+          <p class="small"><a href="writing/">writing index</a></p>
+        </section>
+      </div>
+
+      <section id="pet-projects" class="container section">
+        <div class="ctitle">pet projects</div>
+        <div class="small" style="color:#900; margin-bottom:18px;">This is a small curated list. See the current source on <a href="https://github.com/tatavishnurao">GitHub</a>.</div>
+
+        <div class="project">
+          <div class="pico"><a href="assets/projects/latent-paged-attention.svg"><img src="assets/projects/latent-paged-attention.svg" alt="LatentPagedAttention architecture diagram"></a></div>
+          <div class="pdesc"><a href="https://github.com/tatavishnurao/LatentPagedAttention-rs">LatentPagedAttention-rs</a> is a Rust, Python, and cuTile experiment measuring the memory-compute trade-off of paged latent-cache decode attention. It includes references, Rust CPU paths, GPU paths, deterministic fixtures, benchmark reports, and explicit limitations.<span class="pmeta">Rust · Python · cuTile · CUDA · NumPy</span></div>
+          <div class="pend"></div>
+        </div>
+
+        <div class="project">
+          <div class="pico"><a href="assets/projects/signalflow.svg"><img src="assets/projects/signalflow.svg" alt="SignalFlow log-Mel pipeline diagram"></a></div>
+          <div class="pdesc"><a href="https://github.com/tatavishnurao/signalflow-rs">signalflow-rs</a> is a real-time-capable Rust DSP/log-Mel frontend for audio feature extraction. The pipeline covers preprocessing to 16 kHz mono, framing, Hann windowing, FFT power spectrum, Mel filtering, log compression, streaming buffers, and drop metrics.<span class="pmeta">Rust · DSP · streaming · Criterion</span></div>
+          <div class="pend"></div>
+        </div>
+
+        <div class="project">
+          <div class="pico"><a href="assets/projects/dubpatch.svg"><img src="assets/projects/dubpatch.svg" alt="DubPatch evidence-first review architecture"></a></div>
+          <div class="pdesc"><a href="https://github.com/tatavishnurao/DubPatch">DubPatch</a> is an evidence-first review system for Sarvam-dubbed automotive Shorts. It produces preserved, review_required, or unable_to_verify states rather than a universal accuracy score or autonomous certification.<span class="pmeta">Python · FastAPI · STT · review pipeline</span></div>
+          <div class="pend"></div>
+        </div>
+
+        <div class="project">
+          <div class="pico"><a href="assets/projects/glyphportrait.svg"><img src="assets/projects/glyphportrait.svg" alt="GlyphPortrait semantic micrography pipeline"></a></div>
+          <div class="pdesc"><a href="https://github.com/tatavishnurao/GlyphPortrait">GlyphPortrait</a> is a semantic digital micrography engine for portrait reconstruction. It takes a person image and user-provided words, extracts and vectorizes visual regions, generates text streamlines, and renders the person using readable text.<span class="pmeta">Python · Pillow · NumPy · SVG · Gradio</span></div>
+          <div class="pend"></div>
+        </div>
+
+        <div class="project">
+          <div class="pico"><a href="assets/projects/hf-gpu.svg"><img src="assets/projects/hf-gpu.svg" alt="SochDB benchmark diagram"></a></div>
+          <div class="pdesc"><a href="https://github.com/tatavishnurao/sochdb-benchmarks">SochDB / LoCoMo retrieval benchmarks</a> collect reproducible benchmark lanes for vector search and agent-memory retrieval, separating retrieval quality, system overhead, datasets, workloads, raw outputs, and reports.<span class="pmeta">Python · Rust FFI · HNSW · evaluation</span></div>
+          <div class="pend"></div>
+        </div>
+
+        <p class="small"><a href="projects/">project index</a></p>
+      </section>
+
+      <section id="research" class="container section">
+        <div class="ctitle">research</div>
+        <div class="pub">
+          <div class="pub-title">Characterizing Paged Latent-Cache Attention on GPUs</div>
+          <div class="pub-venue">2026</div>
+          <div class="pub-authors">Tata Vishnu Rao. Technical report and code for LatentPagedAttention-rs. No peer-review or production-serving claim is implied.</div>
+          <span class="paper-links"><a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/FINAL_REPORT.md">[technical report]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs">[code]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/tree/main/reports">[experiments]</a></span>
+        </div>
+        <p class="small"><a href="research/">research index</a></p>
+      </section>
+
+      <section id="engineering-notes" class="container section">
+        <div class="ctitle">engineering notes</div>
+        <ul class="topic-list">
+          <li>GPU systems</li><li>CUDA</li><li>LLM inference</li><li>attention</li><li>memory hierarchy</li><li>distributed systems</li><li>databases</li><li>Rust</li><li>C++</li><li>robotics</li><li>vision-language models</li><li>signal processing</li>
+        </ul>
+      </section>
+
+      <section id="misc" class="container section">
+        <div class="ctitle">misc</div>
+        <ul class="misc-list">
+          <li>I prefer small reproducible experiments over large uninspectable demos.</li>
+          <li>Current interests include GPU memory behavior, attention kernels, serving systems, robotics software, and databases for long-lived agents.</li>
+          <li>The site is intentionally plain HTML and CSS, because the content should outlive the framework.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <div class="links">
+        <a href="https://github.com/tatavishnurao">github</a><span>·</span>
+        <a href="https://www.linkedin.com/in/tatavishnurao/">linkedin</a><span>·</span>
+        <a href="https://x.com/tatavishnurao">x</a><span>·</span>
+        <a href="mailto:tatavishnurao@gmail.com">email</a><span>·</span>
+        <a href="assets/resume.pdf">resume</a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Research | Tata Vishnu Rao</title>
+    <meta name="description" content="Research notes and technical reports by Tata Vishnu Rao.">
+    <link rel="canonical" href="https://tatavishnurao.github.io/research/">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <main class="page">
+      <a class="back" href="../">← home</a>
+      <h1>research</h1>
+      <p>This page lists technical reports and research-style experiments. It does not label work as a publication unless there is a public preprint or peer-reviewed venue.</p>
+
+      <div class="pub">
+        <div class="pub-title">Characterizing Paged Latent-Cache Attention on GPUs</div>
+        <div class="pub-venue">2026</div>
+        <div class="pub-authors">Tata Vishnu Rao. Technical report and implementation for LatentPagedAttention-rs.</div>
+        <span class="paper-links"><a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/FINAL_REPORT.md">[technical report]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs">[code]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/tree/main/reports">[experiments]</a> <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/LIMITATIONS.md">[limitations]</a></span>
+      </div>
+
+      <p>The experiment studies a controlled synthetic linear formulation for paged latent-cache decode attention on an RTX 4060. The repository reports a persistent cache-byte reduction relative to a full-KV baseline and the corresponding slower latent read path under synchronized host end-to-end timing. It is framed as a memory-compute trade-off, not a serving speedup claim.</p>
+
+      <a class="figure-link" href="../assets/projects/latent-paged-attention-critical-path.svg"><img src="../assets/projects/latent-paged-attention-critical-path.svg" alt="Critical path diagram for paged latent-cache attention"></a>
+
+      <h2>evaluation work</h2>
+      <div class="pub">
+        <div class="pub-title">LoCoMo retrieval evaluation for SochDB</div>
+        <div class="pub-venue">2026</div>
+        <div class="pub-authors">A benchmark lane for agent-memory retrieval and vector-search comparisons.</div>
+        <span class="paper-links"><a href="https://github.com/tatavishnurao/sochdb-benchmarks">[benchmark repository]</a></span>
+      </div>
+    </main>
+  </body>
+</html>

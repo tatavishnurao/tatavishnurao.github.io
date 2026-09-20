@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projects | Tata Vishnu Rao</title>
+    <meta name="description" content="Selected ML systems, GPU, inference, audio, and evaluation projects by Tata Vishnu Rao.">
+    <link rel="canonical" href="https://tatavishnurao.github.io/projects/">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <main class="page">
+      <a class="back" href="../">← home</a>
+      <h1>projects</h1>
+      <p>Selected systems and research prototypes. Each description is intentionally bounded to what is documented in the repository.</p>
+
+      <h2>LatentPagedAttention-rs</h2>
+      <p><a href="https://github.com/tatavishnurao/LatentPagedAttention-rs">github</a> · <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/ARCHITECTURE.md">architecture</a> · <a href="https://github.com/tatavishnurao/LatentPagedAttention-rs/blob/main/docs/FINAL_REPORT.md">technical report</a></p>
+      <p>A correctness-first Rust, Python, and cuTile experiment measuring the memory-compute trade-off of paged latent-cache decode attention on an RTX 4060. It asks whether a paged latent cache can be mutated and consumed directly on GPU without storing persistent full K/V tensors.</p>
+      <a class="figure-link" href="../assets/projects/latent-paged-attention.svg"><img src="../assets/projects/latent-paged-attention.svg" alt="LatentPagedAttention architecture diagram"></a>
+
+      <h2>signalflow-rs</h2>
+      <p><a href="https://github.com/tatavishnurao/signalflow-rs">github</a> · <a href="https://github.com/tatavishnurao/signalflow-rs/tree/main/docs">docs</a></p>
+      <p>A real-time-capable Rust DSP/log-Mel frontend for audio feature extraction. The current pipeline includes preprocessing to 16 kHz mono, framing, Hann windowing, FFT power spectrum, Mel filtering, log compression, streaming buffers, drop metrics, and Criterion benchmarks.</p>
+      <a class="figure-link" href="../assets/projects/signalflow.svg"><img src="../assets/projects/signalflow.svg" alt="SignalFlow log-Mel audio pipeline"></a>
+
+      <h2>DubPatch</h2>
+      <p><a href="https://github.com/tatavishnurao/DubPatch">github</a> · <a href="https://github.com/tatavishnurao/DubPatch/tree/main/docs">docs</a></p>
+      <p>An evidence-first review system for Sarvam-dubbed automotive Shorts. It produces preserved, review_required, or unable_to_verify states; it does not emit a universal accuracy score or autonomous certification.</p>
+      <a class="figure-link" href="../assets/projects/dubpatch.svg"><img src="../assets/projects/dubpatch.svg" alt="DubPatch architecture diagram"></a>
+
+      <h2>GlyphPortrait</h2>
+      <p><a href="https://github.com/tatavishnurao/GlyphPortrait">github</a> · <a href="https://github.com/tatavishnurao/GlyphPortrait/blob/main/docs/algorithm.md">algorithm</a> · <a href="https://github.com/tatavishnurao/GlyphPortrait/blob/main/docs/limitations.md">limitations</a></p>
+      <p>A semantic digital micrography engine for portrait reconstruction. It takes a person image and a user-provided word prompt, extracts/vectorizes visual regions, generates coherent text streamlines, and renders the person using readable text.</p>
+      <a class="figure-link" href="../assets/projects/glyphportrait.svg"><img src="../assets/projects/glyphportrait.svg" alt="GlyphPortrait architecture diagram"></a>
+
+      <h2>SochDB / LoCoMo retrieval benchmarks</h2>
+      <p><a href="https://github.com/tatavishnurao/sochdb-benchmarks">github</a></p>
+      <p>A reproducible benchmark lane for vector search and agent-memory retrieval. The useful distinction is separating retrieval quality, system overhead, workloads, raw outputs, and reports instead of collapsing the system into one headline score.</p>
+
+      <h2>RealKV-Serve</h2>
+      <p><a href="https://github.com/tatavishnurao/RealKV-Serve">github</a> · <a href="https://github.com/tatavishnurao/RealKV-Serve/blob/main/docs/REPRODUCIBILITY.md">reproducibility</a></p>
+      <p>A milestone-one compatibility and observability experiment for observing the paged KV-cache lifecycle of one deterministic Qwen3-1.7B request through the TensorRT-LLM PyTorch backend on an RTX 4060 Laptop GPU.</p>
+    </main>
+  </body>
+</html>
