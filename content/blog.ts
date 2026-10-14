@@ -31,29 +31,6 @@ The model-shaped benchmark produced a 16× cache reduction, but latent reads rem
 The repository includes deterministic validation, environment capture, and the benchmark artifacts behind these numbers. [View the implementation](https://github.com/tatavishnurao/LatentPagedAttention-rs).`
   },
   {
-    slug: "why-multi-hop-memory-retrieval-fails",
-    title: "Why multi-hop memory retrieval fails first",
-    date: "2026-08-10",
-    excerpt: "A retrieval audit across 1,986 LoCoMo questions, and why a high oracle ceiling changes the optimization target.",
-    body: `A memory system can look strong overall while failing precisely on the questions that require it to connect events. Multi-hop questions are where ranking quality, evidence coverage, and context assembly collide.
-
-## Separate retrieval from generation
-
-I evaluated retrieval independently before asking a language model to answer. This matters: otherwise a capable model can hide missing evidence, while a weak answer model can make good retrieval look broken.
-
-The test set contains 966 questions, separated from 1,020 development questions with zero overlap. At a candidate pool of 200, the legal oracle ceiling exceeded 99% Hit@5 and 97% Recall@5. The evidence usually existed in the pool. Selection was the bottleneck.
-
-## The uncomfortable category
-
-Cross-encoder reranking substantially improved the overall result, yet multi-hop retrieval remained the weakest category. A single relevance score tends to prefer individually plausible memories. Multi-hop questions need complementary evidence: one memory establishes an entity or event and another completes the relation.
-
-## What I would optimize next
-
-The next useful mechanism is not simply a larger top-k. It is coverage-aware selection: retrieve broadly, identify the implied sub-questions, then select a compact set whose evidence is jointly sufficient. The evaluation must continue reporting category-level recall so an overall average cannot hide the failure mode.
-
-[Explore the benchmark repository](https://github.com/tatavishnurao/sochdb-benchmarks).`
-  },
-  {
     slug: "real-time-log-mel-rust",
     title: "Building a real-time log-Mel frontend in Rust",
     date: "2026-07-08",

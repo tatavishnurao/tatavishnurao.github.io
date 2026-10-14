@@ -50,7 +50,7 @@ export default function HomePage() {
             <p id="index-heading" className="eyebrow">INDEX</p>
             <div className="index-rows">
               <Link href="/projects"><span>projects</span><span>shipped systems and experiments</span><b>06</b></Link>
-              <Link href="/blog"><span>writing</span><span>technical breakdowns and field notes</span><b>03</b></Link>
+              <Link href="/blog"><span>writing</span><span>technical breakdowns and field notes</span><b>02</b></Link>
               <Link href="/publications"><span>research</span><span>papers, implementations, and reading</span><b>—</b></Link>
               <Link href="/about"><span>about</span><span>the person behind the measurements</span><b>01</b></Link>
             </div>
