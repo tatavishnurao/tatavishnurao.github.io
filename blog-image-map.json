@@ -1,0 +1,86 @@
+[
+  {
+    "upload": "image(6).png",
+    "asset": "assets/blogs/nvidia-cover.png",
+    "placement": "cover",
+    "alt": "Illustrated NVIDIA architecture journey from Pascal to Vera Rubin"
+  },
+  {
+    "upload": "image(7).png",
+    "asset": "assets/blogs/nvidia-pascal-gp100.png",
+    "placement": "body figure 1",
+    "alt": "GP100 architecture diagram"
+  },
+  {
+    "upload": "image(8).png",
+    "asset": "assets/blogs/nvidia-pascal-dgx1.png",
+    "placement": "body figure 2",
+    "alt": "DGX-1 system shown in the Pascal section"
+  },
+  {
+    "upload": "image(9).png",
+    "asset": "assets/blogs/nvidia-volta-diagram.png",
+    "placement": "body figure 3",
+    "alt": "Illustration of hardware components in Volta"
+  },
+  {
+    "upload": "image(10).png",
+    "asset": "assets/blogs/nvidia-volta-tensor-comparison.png",
+    "placement": "body figure 4",
+    "alt": "Mixed-precision Tensor FLOPS comparison featuring V100"
+  },
+  {
+    "upload": "image(20261015-083622).png",
+    "asset": "assets/blogs/nvidia-ampere-banner.png",
+    "placement": "body figure 5",
+    "alt": "NVIDIA Ampere Architecture banner"
+  },
+  {
+    "upload": "image(20261015-083625).png",
+    "asset": "assets/blogs/nvidia-ampere-a100.png",
+    "placement": "body figure 6",
+    "alt": "NVIDIA A100 module"
+  },
+  {
+    "upload": "image(20261015-083630).png",
+    "asset": "assets/blogs/nvidia-hopper-h100.png",
+    "placement": "body figure 7",
+    "alt": "NVIDIA H100 / Hopper SXM module"
+  },
+  {
+    "upload": "image(20261015-083637).png",
+    "asset": "assets/blogs/nvidia-blackwell-b200.png",
+    "placement": "body figure 8",
+    "alt": "NVIDIA B200 dual-die design"
+  },
+  {
+    "upload": "image(20261015-083638).png",
+    "asset": "assets/blogs/nvidia-blackwell-nvl72.png",
+    "placement": "body figure 9",
+    "alt": "NVIDIA GB200 NVL72 rack"
+  },
+  {
+    "upload": "image(20261015-083642).png",
+    "asset": "assets/blogs/nvidia-vera-rubin-diagram.png",
+    "placement": "body figure 10",
+    "alt": "NVIDIA Vera Rubin architecture diagram"
+  },
+  {
+    "upload": "image(20261015-083649).png",
+    "asset": "assets/blogs/nvidia-civo-rack-model.png",
+    "placement": "body figure 11",
+    "alt": "Civo’s interactive GPU rack model"
+  },
+  {
+    "upload": "image(20261015-083653).png",
+    "asset": "assets/blogs/nvidia-consumer-enterprise-chart.png",
+    "placement": "body figure 12",
+    "alt": "Consumer and enterprise NVIDIA GPU family comparison chart"
+  },
+  {
+    "upload": "image(20261015-083658).png",
+    "asset": "assets/blogs/nvidia-closing-photo.png",
+    "placement": "body figure 13",
+    "alt": "Closing photograph from the original article"
+  }
+]
