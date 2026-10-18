@@ -12,8 +12,8 @@
 - Migration used a separate clean worktree because the original checkout had a
   modified `index.html` and untracked `dist/` and `tmp/`. Those changes were not
   stashed, reset, deleted or included. No applicable AGENTS.md was found.
-- Supplied `index.html`, `assets/timely.js`, `assets/timely.css` and all 14 blog
-  images are unchanged. No framework rewrite, private-site scraping, iframe,
+- Supplied `index.html` has only two whitespace-only blank lines cleaned;
+  `assets/timely.js`, `assets/timely.css` and all 14 blog images are unchanged. No framework rewrite, private-site scraping, iframe,
   homepage redirect, new Site, audience change or Next build was performed.
 - Five projects remain in supplied order: ctxd, DubPatch, signalflow-rs,
   GlyphPortrait, LatentPagedAttention-rs. Old project pages are not published.
@@ -31,12 +31,15 @@ keyboard-accessible fallback link; `.html` aliases are also included.
 - `/writing/` and `/writing/index.html` → `/#blogs`; do not republish the old
   agent-memory retrieval entry or its benchmark descriptions.
 - `/resume/` and `/resume/index.html` → `/assets/resume.pdf`.
-- Defensive removed-project entrypoints `/projects/RealKV-Serve/`,
-  `/projects/realkv-serve/`, `/projects/realkv/`, `/projects/SochDB/` and
-  `/projects/sochdb/` → `/#projects`. These redirects contain no retired project
-  descriptions. Their `.html` aliases also redirect. These specific pages did
-  not exist in the current tracked tree; aliases prevent likely old bookmarks
-  from exposing archived content.
+- Defensive removed-project entrypoints `/projects/realkv-serve/`,
+  `/projects/realkv/` and `/projects/sochdb/` → `/#projects`. Their `.html`
+  aliases also redirect and contain no retired descriptions. Uppercase/mixed-case
+  variants such as `/projects/RealKV-Serve/` and `/projects/SochDB/` are handled
+  by the Pages `404.html` JavaScript redirect. Without JavaScript its fallback
+  links remain usable. Keeping casing variants in the 404 handler avoids filename
+  collisions on Windows while supporting case-sensitive Pages hosting. These
+  specific pages did not exist in the current tracked tree; aliases protect
+  likely old bookmarks without exposing archived content.
 - `/assets/resume.pdf` remains byte-identical to the real repository PDF:
   SHA-256 `a6ed7cbe3be1111922a7f30c8752c081eaa10fa3ab9ae5bee3a64840f5336f50`.
 - Existing `assets/`, `content/` and `images/` are preserved; supplied blog images
@@ -67,7 +70,12 @@ feature branch; merge only after review.
 - Release generator and supplied static validator: PASS.
 - Five migration unit tests: PASS (PDF/resource bytes, recovered-note checksum,
   redirect map and single canonical Pages artifact).
-- `git diff --check`: PASS.
+- `git diff --check` including the full base-to-branch diff: PASS. Preserved
+  CRLF SVG files are marked `cr-at-eol`; PDFs are marked binary rather than
+  modifying their original bytes to satisfy text whitespace checks.
+- A Linux materialization of the Git index also passed the static validator,
+  all five preservation tests and the complete 20-configuration browser suite,
+  checking actual case-sensitive paths and the committed release inventory.
 - Actual headless Chromium/Playwright browser checks: PASS across widths 320,
   390, 768, 1024 and 1280, each portrait and landscape with both desktop and
   coarse pointers (20 configurations, ten routes each). Checked overflow,
@@ -119,7 +127,7 @@ the canonical release and compare the actual required files, not just manifest I
 3. Merge the reviewed matching commit; monitor the Pages workflow.
 4. Verify served files and release identity on both hosts and record deployment
    identifiers in the PR. Do not merge automatically.
-5. If needed, open a normal revert PR. For this initial migration, revert its two
+5. If needed, open a normal revert PR. For this initial migration, revert its
    commits in reverse order to restore the previous root homepage and workflow.
    For later releases, revert the release merge. Republish the corresponding
    private saved version separately. Never reset or force-push shared history.

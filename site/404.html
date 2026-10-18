@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — portfolio</title>
+<script>
+// GitHub Pages is case-sensitive. Support historical casing without duplicating
+// filenames that collide on Windows. Never restore removed project descriptions.
+const legacyPath = location.pathname.toLowerCase().replace(/\/index\.html$/, '').replace(/\.html$/, '').replace(/\/$/, '');
+if (/^\/projects\/(realkv-serve|realkv|sochdb)$/.test(legacyPath)) {
+  location.replace('/#projects');
+}
+</script></head><body><h1>Page not found</h1>
+<p><a href="/">Return to the portfolio</a> or <a href="/#projects">browse projects</a>.</p>
+</body></html>

@@ -89,7 +89,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
     assert.equal(await page.locator('#motion-button').isDisabled(), true);
     assert.equal(await page.evaluate(() => Timely.popIn('test')), false);
     // Legacy redirects and original PDF bytes are exercised over HTTP.
-    for (const [path, hash] of [['projects/', '#projects'], ['research/', '#research'], ['writing/', '#blogs'], ['projects/RealKV-Serve/', '#projects'], ['projects/sochdb/', '#projects']]) {
+    for (const [path, hash] of [['projects/', '#projects'], ['research/', '#research'], ['writing/', '#blogs'], ['projects/realkv-serve/', '#projects'], ['projects/sochdb/', '#projects']]) {
       await page.goto(`${base}/${path}`);
       await page.waitForURL(`**/${hash}`);
     }

@@ -7,10 +7,8 @@ ROUTES = {
     'research': '/#research',
     'writing': '/#blogs',
     'resume': '/assets/resume.pdf',
-    'projects/RealKV-Serve': '/#projects',
     'projects/realkv-serve': '/#projects',
     'projects/realkv': '/#projects',
-    'projects/SochDB': '/#projects',
     'projects/sochdb': '/#projects',
 }
 
