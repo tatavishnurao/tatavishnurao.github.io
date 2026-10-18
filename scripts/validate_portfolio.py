@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import tempfile
 from urllib.parse import unquote, urlsplit
+from xml.etree import ElementTree
 from portfolio_release import build
 
 
@@ -65,8 +66,20 @@ def validate(root):
     for value in set(re.findall(r'assets/blogs/[A-Za-z0-9_.-]+', text)):
         assert (root / value).is_file(), f'Missing blog asset: {value}'
     for p in projects:
-        assert p['repo'] and p['lead'] and p['scope'], f'Incomplete project: {p["id"]}'
-        assert base64.b64decode(p['image'].split(',', 1)[1], validate=True).lstrip().startswith(b'<svg'), 'Invalid project diagram'
+        assert p['repo'] and p['lead'] and p['body'], f'Incomplete project: {p["id"]}'
+        diagram = p.get('diagram')
+        if diagram:
+            assert 70 <= len(p['body'].split()) <= 110, f'Story length: {p["id"]}'
+            assert len(p['lead']) < 90, f'Pitch too long: {p["id"]}'
+            assert diagram['alt'].strip(), f'Missing diagram alt: {p["id"]}'
+            path = (root / diagram['src']).resolve()
+            assert path.is_relative_to(root) and path.is_file(), f'Missing local diagram: {path}'
+            svg = ElementTree.parse(path).getroot()
+            assert svg.tag == '{http://www.w3.org/2000/svg}svg', f'Not an SVG: {path}'
+            assert [float(n) for n in svg.attrib['viewBox'].split()] == [0, 0, diagram['width'], diagram['height']], f'Diagram aspect ratio: {path}'
+        else:
+            assert p['scope'], f'Missing project scope: {p["id"]}'
+            assert base64.b64decode(p['image'].split(',', 1)[1], validate=True).lstrip().startswith(b'<svg'), 'Invalid project diagram'
     js = (root / 'assets/timely.js').read_text(encoding='utf-8')
     assert 'setTimeout(()=>close(dialog.contains(document.activeElement)),1750)' in js, 'Dialogue timeout changed'
     effects = re.search(r'const manifestations=(.*?);', js).group(1)
