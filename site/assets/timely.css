@@ -1,0 +1,174 @@
+/* Timely: original clock companion, using the portfolio's semantic palette. */
+#timely-companion{position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden;--timely-size:116px}
+#timely-companion button,#timely-companion input{font:inherit;color:inherit}
+#timely-actor{position:absolute;left:0;top:0;width:var(--timely-size);height:calc(var(--timely-size)*1.16);padding:0;pointer-events:auto;touch-action:none;user-select:none;will-change:transform;color:var(--fg);isolation:isolate;outline-offset:3px}
+#timely-actor svg{display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 3px 3px var(--bg))}
+#timely-actor .timely-vector{opacity:var(--timely-vector-opacity,1);transform:translateY(var(--timely-emerge-y,0px)) scale(var(--timely-emerge-scale,1));transform-origin:50% 76%}
+#timely-material{display:none;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:var(--timely-material-opacity,0);z-index:1}
+#timely-companion[data-manifest]:not([data-manifest=none]) #timely-material{display:block}
+#timely-companion[data-reading=true] #timely-material,#timely-companion[data-still=true] #timely-material{display:none!important}
+#timely-companion[data-reading=true] .timely-vector,#timely-companion[data-still=true] .timely-vector{opacity:1!important}
+#timely-actor .timely-body{transform-origin:80px 73px;transition:transform .3s ease}
+#timely-actor .timely-face{fill:var(--panel);stroke:var(--fg);stroke-width:1.35}
+#timely-actor .timely-accent{stroke:var(--green)}
+#timely-actor .timely-ticks{opacity:.55;stroke:var(--fg);stroke-width:1.2}
+#timely-actor .timely-eyes{transform-origin:80px 69px}
+#timely-actor .timely-leg-left{transform-origin:65px 120px}
+#timely-actor .timely-leg-right{transform-origin:97px 120px}
+#timely-actor .timely-arm{transform-origin:125px 76px}
+#timely-actor .timely-hands{transform-origin:80px 73px}
+#timely-actor .timely-caption{font:10px var(--mono);fill:var(--green);text-anchor:middle;letter-spacing:.06em}
+#timely-companion[data-pose=flying] .timely-body{transform:rotate(var(--timely-lean,-9deg))}
+#timely-companion[data-pose=flying] .timely-leg-left{animation:timely-step .42s ease-in-out infinite alternate}
+#timely-companion[data-pose=flying] .timely-leg-right{animation:timely-step .42s ease-in-out infinite alternate-reverse}
+#timely-companion[data-pose=flying] .timely-arm{transform:rotate(-22deg)}
+#timely-companion[data-pose=dragging] .timely-body{transform:rotate(11deg)}
+#timely-companion[data-pose=dragging] .timely-leg-left{transform:rotate(18deg)}
+#timely-companion[data-pose=dragging] .timely-leg-right{transform:rotate(-18deg)}
+#timely-companion[data-pose=wave] .timely-arm{animation:timely-wave .55s ease-in-out 4 alternate}
+#timely-companion[data-pose=speaking] .timely-mouth{animation:timely-speak .24s ease-in-out 6 alternate;transform-origin:80px 89px}
+#timely-companion[data-pose=point] .timely-arm{transform:rotate(-43deg)}
+:root[data-motion=on] #timely-companion[data-pose=idle] .timely-body{animation:timely-hover 5s ease-in-out infinite}
+:root[data-motion=on] #timely-companion .timely-eyes{animation:timely-blink 7.5s linear infinite}
+:root[data-motion=on] #timely-companion .timely-hands{animation:timely-clock 60s linear infinite}
+#timely-companion[data-suspended=true] *{animation-play-state:paused!important}
+#timely-companion[data-still=true] *,:root[data-motion=off] #timely-companion *{animation:none!important;transition:none!important}
+#timely-companion[data-still=true] .timely-body,:root[data-motion=off] #timely-companion .timely-body{transform:none}
+#timely-greeting{position:absolute;pointer-events:auto;max-width:240px;width:max-content;background:var(--panel);border:1px solid var(--line);padding:10px 13px;font:12px/1.6 var(--mono);color:var(--fg);text-align:left;box-shadow:0 4px 18px var(--bg)}
+#timely-dialog{position:fixed;width:360px;max-width:calc(100vw - 24px);background:var(--bg);color:var(--fg);border:1px solid var(--line);box-shadow:0 12px 40px var(--bg);pointer-events:auto;display:flex;flex-direction:column;font:13px/1.6 var(--mono);overflow:hidden;isolation:isolate}
+.timely-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding:12px 15px;flex-shrink:0}
+.timely-dialog-head h2{font:13px var(--mono);color:var(--green);margin:0}
+.timely-dialog-head small{display:block;font:10px/1.7 var(--mono);color:var(--muted);margin-top:3px}
+#timely-close{border:1px solid var(--line);min-width:36px;min-height:36px;font-size:18px;padding:0}
+.timely-scroll{overflow-y:auto;overscroll-behavior:contain;padding:15px;scrollbar-width:thin;min-height:0}
+#timely-messages{display:grid;gap:12px;margin-bottom:15px}
+.timely-message{margin:0;font:13px/1.65 var(--mono);overflow-wrap:anywhere}
+.timely-message span{display:block;font:10px/1.6 var(--mono);color:var(--green);margin-bottom:4px}
+.timely-message[data-author=you]{padding-left:15px;border-left:1px solid var(--line);color:var(--muted)}
+.timely-message[data-author=you] span{color:var(--muted)}
+#timely-quick{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:14px 0}
+#timely-quick button,.timely-directory button,#timely-tour button{border:1px solid var(--line);padding:9px 10px;text-align:left;min-height:40px;font-size:12px}
+#timely-dialog button:hover{border-color:var(--fg);color:var(--green)}
+.timely-directory{margin:12px 0}
+.timely-directory summary{color:var(--green);cursor:pointer;padding:9px 0}
+.timely-directory>div{display:grid;gap:5px;padding:7px 0}
+.timely-directory button{display:flex;justify-content:space-between;gap:12px;overflow-wrap:anywhere}
+.timely-directory button[aria-current=page]{border-color:var(--green);color:var(--green)}
+#timely-tour{border-top:1px solid var(--line);padding-top:13px;margin-top:13px}
+#timely-tour-label{margin:0 0 10px;color:var(--green);font-size:11px}
+.timely-tour-actions{display:flex;flex-wrap:wrap;gap:7px}
+#timely-form{display:flex;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:13px;margin-top:13px}
+#timely-form label{color:var(--green)}
+#timely-input{width:100%;min-width:0;background:var(--panel);border:1px solid var(--line);padding:9px;color:var(--fg);font-size:13px}
+#timely-form button{border:1px solid var(--line);padding:9px 10px;min-height:40px;color:var(--green)}
+#timely-reply-hint{font:11px/1.6 var(--mono);color:var(--muted);margin:9px 0 0}
+.timely-controls{display:flex;gap:5px 12px;flex-wrap:wrap;border-top:1px solid var(--line);padding:9px 15px;flex-shrink:0;background:var(--panel)}
+.timely-controls button{font:11px/1.5 var(--mono)!important;padding:5px 0;min-height:30px;text-align:left}
+#timely-restore{position:fixed;right:16px;top:78px;border:1px solid var(--line);background:var(--bg);color:var(--green);pointer-events:auto;padding:10px 13px;font:12px var(--mono)}
+#timely-actor:focus-visible,#timely-greeting:focus-visible,#timely-dialog button:focus-visible,#timely-input:focus-visible,#timely-restore:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.timely-instructions{font:11px/1.6 var(--mono);color:var(--muted);margin:0 0 12px}
+@keyframes timely-hover{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
+@keyframes timely-step{from{transform:rotate(-13deg)}to{transform:rotate(13deg)}}
+@keyframes timely-wave{from{transform:rotate(-5deg)}to{transform:rotate(-32deg)}}
+@keyframes timely-blink{0%,43%,46%,100%{transform:scaleY(1)}44%,45%{transform:scaleY(.08)}}
+@keyframes timely-clock{to{transform:rotate(360deg)}}
+@keyframes timely-speak{from{transform:scaleY(.65)}to{transform:scaleY(1.25)}}
+/* Expression layers change independently from the movement of the whole body. */
+#timely-actor .timely-kinetics{transform-origin:80px 118px}
+#timely-actor .timely-brow-left{transform-origin:63px 57px;transition:transform .22s ease}
+#timely-actor .timely-brow-right{transform-origin:95px 57px;transition:transform .22s ease}
+#timely-actor .timely-left-arm{transform-origin:34px 80px}
+#timely-actor .timely-mouth-oh,#timely-actor .timely-mouth-flat,#timely-actor .timely-mouth-grin,#timely-actor .timely-sleep,#timely-actor .timely-question,#timely-actor .timely-surprise{display:none}
+#timely-actor .timely-eye-white{transform-box:fill-box;transform-origin:center;transition:transform .22s ease}
+#timely-actor .timely-shadow{fill:var(--fg);stroke:none;opacity:.12;transform-origin:80px 161px;transition:transform .4s,opacity .4s}
+#timely-actor .timely-face-light{stroke:var(--fg);stroke-width:.5;opacity:.18}
+#timely-companion[data-emotion=curious] .timely-brow-right{transform:translateY(-5px) rotate(-12deg)}
+#timely-companion[data-emotion=curious] .timely-brow-left{transform:translateY(1px) rotate(9deg)}
+#timely-companion[data-emotion=thinking] .timely-brow-left{transform:translateY(-3px) rotate(-13deg)}
+#timely-companion[data-emotion=thinking] .timely-brow-right{transform:translateY(1px) rotate(-9deg)}
+#timely-companion[data-emotion=thinking] .timely-mouth-smile,#timely-companion[data-emotion=focused] .timely-mouth-smile{display:none}
+#timely-companion[data-emotion=thinking] .timely-mouth-flat,#timely-companion[data-emotion=focused] .timely-mouth-flat{display:block}
+#timely-companion[data-emotion=thinking] .timely-question{display:block}
+#timely-companion[data-emotion=surprised] .timely-brow-left,#timely-companion[data-emotion=surprised] .timely-brow-right{transform:translateY(-7px)}
+#timely-companion[data-emotion=surprised] .timely-eye-white{transform:scale(1.16)}
+#timely-companion[data-emotion=surprised] .timely-mouth-smile,#timely-companion[data-emotion=sleepy] .timely-mouth-smile{display:none}
+#timely-companion[data-emotion=surprised] .timely-mouth-oh,#timely-companion[data-emotion=sleepy] .timely-mouth-oh{display:block}
+#timely-companion[data-emotion=surprised] .timely-surprise{display:block}
+#timely-companion[data-emotion=excited] .timely-mouth-smile,#timely-companion[data-emotion=cheeky] .timely-mouth-smile{display:none}
+#timely-companion[data-emotion=excited] .timely-mouth-grin,#timely-companion[data-emotion=cheeky] .timely-mouth-grin{display:block}
+#timely-companion[data-emotion=excited] .timely-brow-left{transform:translateY(-3px) rotate(-7deg)}
+#timely-companion[data-emotion=excited] .timely-brow-right{transform:translateY(-3px) rotate(7deg)}
+#timely-companion[data-emotion=cheeky] .timely-brow-right{transform:translateY(-5px) rotate(-15deg)}
+:root[data-motion=on] #timely-companion[data-emotion=focused] .timely-eyes{animation:none;transform:scaleY(.78)}
+:root[data-motion=on] #timely-companion[data-emotion=sleepy] .timely-eyes{animation:none;transform:scaleY(.08)}
+#timely-companion[data-emotion=sleepy] .timely-sleep{display:block}
+#timely-companion[data-emotion=sleepy] .timely-body{transform:rotate(7deg)}
+#timely-companion[data-pose=curious] .timely-body{transform:rotate(8deg) translateY(-2px)}
+#timely-companion[data-pose=curious] .timely-arm{transform:rotate(36deg)}
+#timely-companion[data-pose=reading] .timely-body{transform:rotate(-6deg)}
+#timely-companion[data-pose=reading] .timely-arm{transform:rotate(44deg)}
+#timely-companion[data-pose=peek] .timely-body{animation:timely-peek 2.3s ease-in-out 1}
+#timely-companion[data-pose=stretch] .timely-arm{animation:timely-stretch .9s ease-in-out 2 alternate}
+#timely-companion[data-pose=stretch] .timely-left-arm{animation:timely-stretch-left .9s ease-in-out 2 alternate}
+#timely-companion[data-pose=stretch] .timely-body{animation:timely-stretch-body 2.2s ease-in-out 1}
+#timely-companion[data-pose=wink] .timely-eye-left{animation:timely-wink 1.7s ease-in-out 1}
+#timely-companion[data-pose=wink] .timely-pupil-left{animation:timely-wink-pupil 1.7s ease-in-out 1}
+#timely-companion[data-pose=flying] .timely-kinetics{animation:timely-takeoff .7s ease-out 1}
+#timely-companion[data-pose=flying] .timely-shadow{opacity:.04;transform:scaleX(.65)}
+#timely-companion[data-pose=landing] .timely-kinetics{animation:timely-land .85s ease-out 1}
+#timely-companion[data-pose=hop] .timely-kinetics{animation:timely-hop 1.1s cubic-bezier(.25,.7,.3,1) 2}
+#timely-companion[data-pose=spin] .timely-kinetics{animation:timely-spin 1.8s cubic-bezier(.3,.05,.2,1) 1;transform-origin:80px 85px}
+#timely-companion[data-pose=dance] .timely-kinetics{animation:timely-dance .42s ease-in-out 5}
+#timely-companion[data-pose=dance] .timely-arm{animation:timely-wave .21s ease-in-out 10 alternate}
+#timely-companion[data-pose=dance] .timely-leg-left{animation:timely-step .21s ease-in-out 10 alternate}
+#timely-companion[data-pose=dance] .timely-leg-right{animation:timely-step .21s ease-in-out 10 alternate-reverse}
+#timely-companion[data-pose=happy] .timely-kinetics{animation:timely-land .7s ease-in-out 2}
+#timely-companion[data-pose=wake] .timely-kinetics{animation:timely-wake .7s ease-out 1}
+#timely-companion[data-pose=sleep] .timely-body{animation:timely-doze 4s ease-in-out infinite}
+#timely-companion[data-pose=sleep] .timely-sleep text{animation:timely-z 3.6s ease-out infinite;fill:var(--green);stroke:none;font:12px var(--mono)}
+#timely-companion[data-pose=sleep] .timely-sleep text:nth-child(2){animation-delay:1.2s}
+#timely-companion[data-pose=sleep] .timely-sleep text:nth-child(3){animation-delay:2.4s}
+#timely-actor .timely-question,#timely-actor .timely-surprise{font:15px var(--mono);fill:var(--green);stroke:none}
+#timely-play{color:var(--green)!important}
+#timely-follow[aria-pressed=true]{color:var(--green)}
+/* Companion space is outside the reading/navigation columns. */
+@media(min-width:1280px){:root:not([data-layout=blog]) .frame{width:min(1180px,calc(100% - 320px))}}
+.header{height:auto;min-height:30px;flex-wrap:wrap;margin-bottom:12px}
+#timely-notice-slot{min-height:56px;margin-bottom:4px}
+#timely-notice-slot #timely-greeting{position:static;max-width:100%;width:fit-content;font:12px/1.5 var(--mono);padding:8px 12px;box-shadow:none}
+#timely-restore{position:static;min-height:44px;padding:8px 12px;font:12px var(--mono);flex-shrink:0}
+#timely-companion[data-docked=true] #timely-actor{display:none!important}
+#timely-actor{overflow:hidden}
+#timely-companion[data-arrival=peek] .timely-kinetics{animation:none;transform:rotate(var(--timely-entry-turn,0deg)) scale(.94);transform-origin:80px 85px}
+#timely-companion[data-arrival=peek] .timely-leg-left,#timely-companion[data-arrival=peek] .timely-leg-right{animation:none}
+#timely-companion[data-arrival=peek] .timely-body{transform:rotate(0)}
+#timely-companion[data-arrival=pop] .timely-kinetics{animation:timely-reveal .85s cubic-bezier(.2,.8,.3,1) 1;transform-origin:80px 85px}
+#timely-companion[data-reading=true]{--timely-size:72px}
+#timely-companion[data-reading=true] .timely-caption{opacity:0}
+#timely-companion[data-reading=true] #timely-play,#timely-companion[data-reading=true] #timely-follow,#timely-companion[data-reading=true] #timely-fly{display:none}
+#timely-dialog button:disabled{opacity:.5;cursor:default}
+@media(max-width:720px),(pointer:coarse) and (max-width:1080px){#timely-companion[data-reading=true]{--timely-size:56px}}
+@keyframes timely-reveal{0%{transform:rotate(var(--timely-entry-turn,0deg)) scale(.94)}60%{transform:rotate(-5deg) scale(1.06)}100%{transform:none}}
+@keyframes timely-peek{0%,100%{transform:rotate(0)}35%,65%{transform:translateX(-7px) rotate(-13deg)}}
+@keyframes timely-stretch{to{transform:rotate(-63deg)}}
+@keyframes timely-stretch-left{to{transform:rotate(53deg)}}
+@keyframes timely-stretch-body{50%{transform:scale(.96,1.05) translateY(-3px)}}
+@keyframes timely-wink{0%,25%,75%,100%{transform:scaleY(1)}35%,65%{transform:scaleY(.08)}}
+@keyframes timely-wink-pupil{0%,25%,75%,100%{opacity:1}35%,65%{opacity:0}}
+@keyframes timely-takeoff{0%{transform:scale(1.08,.9) translateY(4px)}35%{transform:scale(.94,1.06) translateY(-4px)}100%{transform:scale(1)}}
+@keyframes timely-land{0%{transform:translateY(-9px) scale(.96,1.04)}24%{transform:translateY(3px) scale(1.08,.91)}53%{transform:translateY(-3px) scale(.99,1.03)}78%,100%{transform:none}}
+@keyframes timely-hop{0%,100%{transform:none}16%{transform:scale(1.06,.92) translateY(3px)}48%{transform:translateY(calc(-1 * var(--timely-hop,28px))) rotate(-5deg)}80%{transform:scale(1.05,.94) translateY(2px)}}
+@keyframes timely-spin{0%{transform:none}15%{transform:rotate(-15deg) scale(.94)}78%{transform:rotate(365deg) translateY(-9px)}100%{transform:rotate(360deg)}}
+@keyframes timely-dance{0%,100%{transform:translateX(-3px) rotate(-5deg)}50%{transform:translateX(3px) rotate(5deg) translateY(-4px)}}
+@keyframes timely-wake{0%{transform:scale(1.06,.9)}50%{transform:scale(.96,1.07) translateY(-6px)}100%{transform:none}}
+@keyframes timely-doze{0%,100%{transform:rotate(7deg) translateY(1px)}50%{transform:rotate(9deg) translateY(4px)}}
+@keyframes timely-z{0%{opacity:0;transform:translateY(5px)}20%{opacity:.65}100%{opacity:0;transform:translateY(-12px)}}
+@media(max-width:720px),(pointer:coarse) and (max-width:1080px){#timely-companion{--timely-size:82px}#timely-actor .timely-caption{font-size:12px}#timely-dialog{width:380px;font-size:14px}.timely-dialog-head{padding:12px}.timely-scroll{padding:12px}#timely-input{font-size:16px}.timely-controls{padding:8px 12px}.timely-controls button{min-height:44px}#timely-quick button,.timely-directory button,#timely-form button,#timely-tour button,#timely-close{min-height:44px}#timely-greeting{max-width:180px;font-size:12px}#timely-restore{top:110px;right:12px}}
+@media(prefers-reduced-motion:reduce){#timely-companion *{animation:none!important;transition:none!important}#timely-actor .timely-body{transform:none!important}}
+
+/* Mobile fallback uses reserved document space, never a floating content overlay. */
+#timely-notice-slot{display:flex;align-items:center;gap:12px}
+#timely-inline-slot{flex:0 0 122px;width:122px;height:136px;position:relative;isolation:isolate}
+#timely-companion[data-inline=true]{position:relative;inset:auto;width:var(--timely-size);height:calc(var(--timely-size)*1.16);margin:20px;overflow:visible}
+#timely-companion[data-inline=true] #timely-actor{touch-action:pan-y}
+#timely-inline-slot + #timely-greeting{min-width:0;overflow-wrap:anywhere}

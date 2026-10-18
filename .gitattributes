@@ -1,0 +1,4 @@
+# Preserve original PDF bytes, including textual PDF cross-reference tables.
+*.pdf binary
+# Existing preserved SVG resources use CRLF; do not rewrite their bytes.
+site/assets/**/*.svg whitespace=cr-at-eol
