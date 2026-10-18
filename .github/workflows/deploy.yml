@@ -1,37 +1,45 @@
-name: Deploy static site to GitHub Pages
+name: Validate and deploy canonical portfolio
 
 on:
+  pull_request:
+    branches: [main]
   push:
-    branches: ["main"]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: portfolio-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate canonical static site
+        run: python3 scripts/validate_portfolio.py --site site
+
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v6
+      - uses: actions/configure-pages@v5
+      - name: Upload only the canonical published directory
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: .
-
-      - name: Deploy to GitHub Pages
+          path: site
+      - name: Publish GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
