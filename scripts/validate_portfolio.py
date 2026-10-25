@@ -54,7 +54,7 @@ def validate(root):
     match = re.search(r'const PROJECTS=(.*?);\n', text)
     assert match, 'Expected portfolio project data was not found'
     projects = json.loads(match.group(1))
-    assert [p['id'] for p in projects] == ['ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent'], 'Project order changed'
+    assert [p['id'] for p in projects] == ['tailbench', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent'], 'Project order changed'
     assert not re.search(r'sochdb|locomo|realkv', text, re.I), 'Retired project reference in homepage'
     expected = {'nav-portfolio': '#about', 'nav-projects': '#projects', 'nav-blogs': '#blogs', 'nav-socials': '#contact', 'nav-github': 'https://github.com/tatavishnurao', 'nav-resume': 'https://tatavishnurao.github.io/assets/resume.pdf'}
     assert page.links == expected, 'Header destination changed'
@@ -67,6 +67,10 @@ def validate(root):
         assert (root / value).is_file(), f'Missing blog asset: {value}'
     for p in projects:
         assert p['repo'] and p['lead'] and p['body'], f'Incomplete project: {p["id"]}'
+        for link in p['links']:
+            if not urlsplit(link['href']).scheme:
+                resource = (root / unquote(urlsplit(link['href']).path)).resolve()
+                assert resource.is_relative_to(root) and resource.is_file(), f'Missing project resource: {resource}'
         diagram = p.get('diagram')
         if diagram:
             assert 70 <= len(p['body'].split()) <= 110, f'Story length: {p["id"]}'
@@ -101,7 +105,7 @@ def validate(root):
     subprocess.run([node, '--check', str(root / 'assets/timely.js')], check=True)
     release = json.loads((root / 'release.json').read_text(encoding='utf-8'))
     assert release == build(root), 'Release manifest is stale; run portfolio_release.py'
-    print(f'PASS: five projects, six header destinations/effects, local assets, résumé, JS syntax and release {release["release_id"]}')
+    print(f'PASS: {len(projects)} projects, six header destinations/effects, local assets, résumé, JS syntax and release {release["release_id"]}')
 
 
 if __name__ == '__main__':
