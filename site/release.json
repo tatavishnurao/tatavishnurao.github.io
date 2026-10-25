@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "release_id": "7bd7b904a157835cf2c1db502ef2a501c344ce34c63f62df223a8c62b51121d4",
+  "release_id": "6eee25a54a1402da13d2d3429cbe67b5be16264d471d4371ab52c5f118e69c5f",
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "404.html": "85d01ab383f41e6e7f2f5ebeabdf89c9b9d348e81e88478d26a3fdf700024f98",
@@ -35,6 +35,7 @@
     "assets/projects/signalflow-critical-path.svg": "1b593f34bd58e7c08abb55101980ec41b376f86cb7a1948e873d56086c9f37c3",
     "assets/projects/signalflow-rs-architecture.svg": "2fa4d407d3e4ee6444e57f1fba7785d32e9b0ad5881a9fd307bc791f8d94a36a",
     "assets/projects/signalflow.svg": "c42baa3a4a5174eebb6bb477d9981f29c856400c6460bfca4d48ac5075d13e23",
+    "assets/projects/tailbench-architecture.png": "3d83ddd1497187831e6d12919965aeb1bd32ca3456aaa02333330cdc3eb402bd",
     "assets/projects/tailbench-architecture.svg": "0b9b7938b30c8831b58ebd8be055467749c75ff13129df7918427979ebb2cd23",
     "assets/resume.pdf": "a6ed7cbe3be1111922a7f30c8752c081eaa10fa3ab9ae5bee3a64840f5336f50",
     "assets/timely.css": "9e2bbc87c7fbe53f1c2a7f7b7d4d05c00e2e0e35cc7a47d6cf4d2835fc55cde2",
@@ -55,7 +56,7 @@
     "images/projects/ml-systems.svg": "0da21b83cb33b4c0faa5bf44dd49df6729c34b453eae3f50a32842025f9b2042",
     "images/projects/signalflow.svg": "a8cbcceb4ca59cb78dc549c8d516d3ec86407e7444f1a0ac34c958ecd4828758",
     "images/v_ghibli_imresizer.jpg": "65cfda0efaa528c936158752615a636ae465d8f019b22b85ff2a4b08462ab735",
-    "index.html": "26b118d5608e43feebc07a9a488511b3cc407e87f57490fd18c884c4df90a84d",
+    "index.html": "eef02b98dc108849455087d1d6e7a0ce76799deedbea4b6af656517c06762073",
     "projects/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
     "projects/realkv/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
     "projects/realkv-serve/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
