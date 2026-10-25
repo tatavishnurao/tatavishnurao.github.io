@@ -78,9 +78,17 @@ def validate(root):
             assert diagram['alt'].strip(), f'Missing diagram alt: {p["id"]}'
             path = (root / diagram['src']).resolve()
             assert path.is_relative_to(root) and path.is_file(), f'Missing local diagram: {path}'
-            svg = ElementTree.parse(path).getroot()
-            assert svg.tag == '{http://www.w3.org/2000/svg}svg', f'Not an SVG: {path}'
-            assert [float(n) for n in svg.attrib['viewBox'].split()] == [0, 0, diagram['width'], diagram['height']], f'Diagram aspect ratio: {path}'
+            if path.suffix.lower() == '.png':
+                data = path.read_bytes()
+                assert data[:16] == b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR', f'Invalid PNG header: {path}'
+                dimensions = [int.from_bytes(data[i:i + 4], 'big') for i in (16, 20)]
+                assert dimensions == [diagram['width'], diagram['height']], f'Diagram dimensions: {path}'
+                assert all(n > 0 for n in dimensions), f'Empty PNG: {path}'
+            else:
+                assert path.suffix.lower() == '.svg', f'Unsupported diagram format: {path}'
+                svg = ElementTree.parse(path).getroot()
+                assert svg.tag == '{http://www.w3.org/2000/svg}svg', f'Not an SVG: {path}'
+                assert [float(n) for n in svg.attrib['viewBox'].split()] == [0, 0, diagram['width'], diagram['height']], f'Diagram aspect ratio: {path}'
         else:
             assert p['scope'], f'Missing project scope: {p["id"]}'
             assert base64.b64decode(p['image'].split(',', 1)[1], validate=True).lstrip().startswith(b'<svg'), 'Invalid project diagram'
