@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-labelledby="tb-title tb-desc">
+  <title id="tb-title">tailbench and phantom / two distinct comparisons</title>
+  <desc id="tb-desc">Within tailbench, Manifest flows through Scheduler, Target and Recorder to an internal comparison Verdict. Target is a caller-supplied async closure; in these audits it calls phantom over HTTP or SSE. An external load tool also calls phantom. A separate Audit receives the tool report, phantom's truth log, and tailbench's reported percentiles. It does not feed the internal verdict.</desc>
+  <style>
+    :root{--paper:#131211;--ink:#d8d4b4;--muted:#b2af95;--rule:#535149;--accent:#71a387;--link:#8fb3d1}
+    .boundary{fill:none;stroke:var(--rule);stroke-dasharray:5 4}
+    .box{fill:var(--paper);stroke:var(--ink)}
+    .accent{stroke:var(--accent)}
+    .name{font:600 18px system-ui,sans-serif;fill:var(--ink)}
+    .note{font:14px ui-monospace,monospace;fill:var(--muted)}
+    .label{font:13px ui-monospace,monospace;fill:var(--link)}
+    .eyebrow{font:13px ui-monospace,monospace;letter-spacing:1.5px;fill:var(--accent)}
+    .arrow{fill:none;stroke:var(--muted);stroke-width:1.5;marker-end:url(#tb-arrow)}
+    .audit-arrow{stroke:var(--link);marker-end:url(#tb-audit-arrow)}
+  </style>
+  <defs>
+    <marker id="tb-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0 0 8 3 0 6Z" fill="#b2af95"/></marker>
+    <marker id="tb-audit-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0 0 8 3 0 6Z" fill="#8fb3d1"/></marker>
+  </defs>
+  <rect width="960" height="640" fill="#131211"/>
+  <text class="eyebrow" x="24" y="29">TAILBENCH / MEASUREMENT + AUDIT</text>
+  <rect class="boundary" x="24" y="52" width="912" height="238" rx="4"/>
+  <text class="eyebrow" x="40" y="78">tailbench · library</text>
+  <!-- Internal flow. The verdict is not the phantom audit. -->
+  <path class="arrow" d="M180 153H210"/>
+  <path class="arrow" d="M355 153H385"/>
+  <path class="arrow" d="M525 153H555"/>
+  <path class="arrow" d="M730 153H765"/>
+  <g>
+    <rect class="box" x="40" y="100" width="140" height="150" rx="3"/>
+    <text class="name" x="52" y="129">Manifest</text>
+    <text class="note" x="52" y="163"><tspan x="52">git SHA</tspan><tspan x="52" dy="22">CPU, runtime</tspan><tspan x="52" dy="32">write + flush</tspan></text>
+    <rect class="box" x="210" y="100" width="145" height="150" rx="3"/>
+    <text class="name" x="222" y="129">Scheduler</text>
+    <text class="note" x="222" y="163"><tspan x="222">open-loop or</tspan><tspan x="222" dy="22">closed-loop</tspan></text>
+    <rect class="box" x="385" y="100" width="140" height="150" rx="3"/>
+    <text class="name" x="397" y="129">Target</text>
+    <text class="note" x="397" y="163"><tspan x="397" font-size="13">caller-supplied</tspan><tspan x="397" dy="22">async closure</tspan></text>
+    <rect class="box" x="555" y="100" width="175" height="150" rx="3"/>
+    <text class="name" x="567" y="129">Recorder</text>
+    <text class="note" x="567" y="157"><tspan x="567">intended-send</tspan><tspan x="567" dy="20">actual-send</tspan><tspan x="567" dy="20">completion</tspan><tspan x="567" dy="25">↓ derived metrics*</tspan></text>
+    <rect class="box accent" x="765" y="100" width="155" height="150" rx="3"/>
+    <text class="name" x="777" y="129">Verdict</text>
+    <text class="note" x="777" y="157"><tspan x="777">Welch / split</tspan><tspan x="777" dy="25">refusal or</tspan><tspan x="777" dy="20">inconclusive</tspan></text>
+  </g>
+  <text class="note" x="40" y="274">* latency · service time · scheduler lag (open-loop)</text>
+  <!-- Audit inputs stay outside the internal comparison path. -->
+  <path class="arrow audit-arrow" d="M455 250V338H370V400"/>
+  <text class="label" x="361" y="318">HTTP/SSE</text>
+  <path class="arrow audit-arrow" d="M642 250V338H850V410"/>
+  <text class="label" x="658" y="318">reported percentiles</text>
+  <rect class="boundary" x="280" y="360" width="370" height="150" rx="4"/>
+  <text class="eyebrow" x="296" y="386">phantom</text>
+  <rect class="box" x="300" y="400" width="140" height="90" rx="3"/>
+  <text class="name" x="314" y="428">phantom</text>
+  <text class="note" x="314" y="454"><tspan x="314">scripted</tspan><tspan x="314" dy="19">OpenAI server</tspan></text>
+  <path class="arrow" d="M440 440H480"/>
+  <rect class="box" x="480" y="400" width="150" height="90" rx="3"/>
+  <text class="name" x="492" y="428">Truth log</text>
+  <text class="note" x="492" y="454"><tspan x="492">per-request +</tspan><tspan x="492" dy="19">per-token</tspan></text>
+  <rect class="box" x="24" y="400" width="172" height="90" rx="3"/>
+  <text class="name" x="36" y="424"><tspan x="36">External</tspan><tspan x="36" dy="21">load tool</tspan></text>
+  <text class="note" x="36" y="465"><tspan x="36">oha / GuideLLM /</tspan><tspan x="36" dy="18">vLLM bench</tspan></text>
+  <path class="arrow audit-arrow" d="M196 440H300"/>
+  <text class="label" x="202" y="430">HTTP/SSE</text>
+  <rect class="box accent" x="710" y="410" width="210" height="80" rx="3"/>
+  <text class="name" x="724" y="438">Audit</text>
+  <text class="note" x="724" y="464">tool output vs logs</text>
+  <path class="arrow audit-arrow" d="M630 440H710"/>
+  <text class="label" x="660" y="378">reference</text>
+  <text class="label" x="660" y="396">measurements</text>
+  <path class="arrow audit-arrow" d="M110 490V552H815V490"/>
+  <text class="label" x="353" y="543">tool report</text>
+  <text class="note" x="24" y="595">One laptop · synthetic workloads · loopback, not real-model performance.</text>
+  <text class="note" x="24" y="620">Truth ends at stream hand-off; downstream delivery / read overhead is not logged.</text>
+</svg>

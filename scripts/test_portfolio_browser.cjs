@@ -22,7 +22,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
           await page.waitForFunction(() => !!window.Timely);
           assert.equal(await page.locator('.site-nav a').count(), 6);
           assert.equal(await page.evaluate(() => matchMedia('(pointer:coarse)').matches), coarse);
-          for (const route of ['projects', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent', 'blogs', 'nvidia-architectures', 'contact', 'resume']) {
+          for (const route of ['projects', 'tailbench', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent', 'blogs', 'nvidia-architectures', 'contact', 'resume']) {
             await page.evaluate(id => { location.hash = id; }, route);
             await page.waitForFunction(id => document.querySelector('#status-view').textContent.toLowerCase().includes(id === 'nvidia-architectures' ? 'nvidia' : id === 'ctxd' ? 'ctxd' : id === 'glyph' ? 'glyph' : id === 'signalflow' ? 'signalflow' : id), route);
             assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true, `Horizontal overflow ${width}x${height} coarse=${coarse} #${route}`);
@@ -30,7 +30,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
             if (['blogs', 'nvidia-architectures'].includes(route)) {
               assert.equal(await page.locator('#timely-companion').getAttribute('data-still'), 'true');
             }
-            if (['ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent'].includes(route)) {
+            if (['tailbench', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent'].includes(route)) {
               await page.locator('[data-inspect]').first().click();
               assert.equal(await page.locator('#media-dialog').evaluate(d => d.open), true);
               await page.locator('#media-close').click();
@@ -46,7 +46,48 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
           await page.waitForURL('**/#projects');
           await page.evaluate(() => { document.querySelector('#command-input').value = 'cd ctxd'; document.querySelector('#command-form').requestSubmit(); });
           await page.waitForURL('**/#ctxd');
-          results.push({ width, height, coarse, routes: 10 });
+          // All navigation surfaces share the same ordered project records.
+          await page.goto(`${base}/#tailbench`);
+          await page.waitForFunction(() => !!window.Timely);
+          assert.equal(await page.locator('#content h1').textContent(), 'tailbench');
+          assert.equal(await page.locator('#project-count').textContent(), '6 projects');
+          assert.deepEqual(await page.evaluate(() => PROJECTS.map(p => p.id)), ['tailbench', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent']);
+          for (const cmd of ['tailbench', 'cd ~/Projects/tailbench', '#tailbench']) {
+            await page.evaluate(cmd => command(cmd), cmd);
+            assert.equal(await page.locator('#content h1').textContent(), 'tailbench');
+          }
+          await page.evaluate(() => { document.querySelector('#command-input').value = 'cd tail'; completeCommand(); });
+          assert.equal(await page.locator('#command-input').inputValue(), 'cd tailbench');
+          await page.evaluate(() => command('ls projects'));
+          assert.equal(await page.locator('#command-results [data-route]').count(), 6);
+          const diagram = page.locator('#content .gallery-image');
+          await diagram.evaluate(img => img.decode());
+          assert.equal(await diagram.evaluate(img => img.naturalWidth > 0 && img.alt.includes('internal comparison')), true);
+          await page.locator('[data-inspect="tailbench"]').click();
+          await page.locator('#media-image').evaluate(img => img.decode());
+          await page.locator('#media-zoom').click();
+          assert.equal(await page.locator('#media-zoom').getAttribute('aria-pressed'), 'true');
+          assert.equal(await page.locator('#media-image').evaluate(img => img.getBoundingClientRect().width >= 960), true);
+          assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
+          await page.locator('#media-viewport').evaluate(el => { el.scrollLeft = 200; });
+          if (width <= 768) assert.ok(await page.locator('#media-viewport').evaluate(el => el.scrollLeft > 0));
+          await page.locator('#media-zoom').click();
+          assert.equal(await page.locator('#media-zoom').getAttribute('aria-pressed'), 'false');
+          assert.equal(await page.locator('[data-timely-page="tailbench"]').count(), 1);
+          await page.keyboard.press('Escape');
+          assert.equal(await page.locator('#media-dialog').evaluate(d => d.open), false);
+          await page.evaluate(() => select('projects'));
+          assert.equal(await page.locator('#content [data-route="tailbench"]').count(), 1);
+          await page.locator('#content [data-route="tailbench"]').click();
+          await page.waitForURL('**/#tailbench');
+          await page.locator('#wheel [data-view="tailbench"]').focus();
+          await page.keyboard.press('ArrowRight');
+          await page.waitForURL('**/#ctxd');
+          if (width <= 768) {
+            await page.locator('#mobile-prev').click();
+            await page.waitForURL('**/#tailbench');
+          }
+          results.push({ width, height, coarse, routes: 11 });
           await context.close();
         }
       }
@@ -57,6 +98,11 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
     await page.goto(base);
     await page.waitForFunction(() => !!window.Timely);
     await page.waitForTimeout(2300);
+    // The companion's data-derived directory also opens the new project.
+    await page.locator('#timely-actor').click();
+    await page.locator('[data-timely-page="tailbench"]').evaluate(button => button.click());
+    await page.waitForURL('**/#tailbench');
+    await page.evaluate(() => Timely.close(false));
     // Actual activation, real browser timers (not mocked).
     await page.locator('#timely-actor').click();
     assert.equal(await page.locator('#timely-dialog').isVisible(), true);
