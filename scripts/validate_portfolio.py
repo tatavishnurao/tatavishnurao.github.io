@@ -56,7 +56,7 @@ def validate(root):
     projects = json.loads(match.group(1))
     assert [p['id'] for p in projects] == ['tailbench', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent'], 'Project order changed'
     assert not re.search(r'sochdb|locomo|realkv', text, re.I), 'Retired project reference in homepage'
-    expected = {'nav-portfolio': '#about', 'nav-projects': '#projects', 'nav-blogs': '#blogs', 'nav-socials': '#contact', 'nav-github': 'https://github.com/tatavishnurao', 'nav-resume': 'https://tatavishnurao.github.io/assets/resume.pdf'}
+    expected = {'nav-portfolio': '#about', 'nav-projects': '#projects', 'nav-blogs': '#blogs', 'nav-socials': '#contact', 'nav-github': 'https://github.com/tatavishnurao', 'nav-resume': 'https://drive.google.com/file/d/1M5tZ2imxlMq2kgfo2zzSxRDgR7EaLW8O/view?usp=sharing'}
     assert page.links == expected, 'Header destination changed'
     for value in page.local:
         path = root / unquote(urlsplit(value).path.lstrip('/'))
