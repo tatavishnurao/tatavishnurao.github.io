@@ -8,9 +8,13 @@
  const compact=()=>window.matchMedia('(max-width:720px), (pointer:coarse) and (max-width:1080px)').matches;
  const reading=()=>document.documentElement.dataset.layout==='blog';
  const BLOG_NOTICE='Focus on the blog. Let me know if you need anything.';
- const motion=()=>effectiveMotion()&&!document.hidden&&!reading()&&!guide.docked;
+ // Flip this flag to restore the retained character choreography.
+ const DORMANT=true;
+ root.dataset.dormant=String(DORMANT);
+ if(DORMANT)guide.hidden=false;
+ const motion=()=>!DORMANT&&effectiveMotion()&&!document.hidden&&!reading()&&!guide.docked;
  const viewport=()=>{const v=window.visualViewport;return {w:v?.width||window.innerWidth,h:v?.height||window.innerHeight,left:v?.offsetLeft||0,top:v?.offsetTop||0};};
- const size=()=>reading()?(compact()?{w:56,h:65}:{w:72,h:84}):compact()?{w:82,h:96}:{w:116,h:135};
+ const size=()=>DORMANT?{w:82,h:96}:reading()?(compact()?{w:56,h:65}:{w:72,h:84}):compact()?{w:82,h:96}:{w:116,h:135};
  // Golden-section edge anchors and landing centers: approximately 38.2% / 61.8%.
  const GOLDEN=1/((1+Math.sqrt(5))/2),GOLDEN_POINTS=[1-GOLDEN,GOLDEN];
  guide.lastPage=state.active;guide.lastEntry=Number.parseInt(readPref('timely-entry'),10);
@@ -179,11 +183,11 @@
  // Narrow screens reserve real document space for the existing character and canvas.
  // Reparent the whole companion to preserve its styles, events and single identity.
  function syncMount(){
-  const use=compact()&&Boolean(overlayParent?.append&&inlineSlot?.append);
+  const use=(DORMANT||compact())&&Boolean(overlayParent?.append&&inlineSlot?.append);
   if(Boolean(guide.inline)===use)return;
   guide.inline=use;root.dataset.inline=String(use);inlineSlot.hidden=!use;
   (use?inlineSlot:overlayParent).append(root);
-  actor.setAttribute('aria-label',use?'Miss Minutes — tap to open the portfolio guide.':'Miss Minutes — open portfolio guide. Drag to move; arrow keys reposition; Home returns to the corner.');
+  actor.setAttribute('aria-label',DORMANT||use?'Miss Minutes — tap to open the portfolio guide.':'Miss Minutes — open portfolio guide. Drag to move; arrow keys reposition; Home returns to the corner.');
  }
  function safety(){
   syncMount();
@@ -192,7 +196,7 @@
    const x=slot.left+CLEARANCE,y=slot.top+CLEARANCE;
    return {v,s,inline:true,slot,zones:valid?[{id:'inline',minX:x,maxX:x,minY:y,maxY:y}]:[],left:slot.left,right:slot.right};
   }
-  const v=viewport(),s=size(),rects=Array.from(document.querySelectorAll('.frame > .header,.frame > .stage,.frame > .statusbar,.frame > .session-strip,.frame > .bottom,.frame > .storage-note,.frame > .theme-popover,#timely-notice-slot,#spine,.skip:focus')).map(node=>node.getBoundingClientRect()).filter(r=>r.width>0&&r.height>0&&Number.isFinite(r.left)&&Number.isFinite(r.right));
+  const v=viewport(),s=size(),rects=Array.from(document.querySelectorAll('.frame > .header,.frame > .stage,.frame > .statusbar,.frame > .session-strip,.frame > .bottom,.frame > .storage-note,.frame > .theme-popover,#timely-notice-slot,.skip:focus')).map(node=>node.getBoundingClientRect()).filter(r=>r.width>0&&r.height>0&&Number.isFinite(r.left)&&Number.isFinite(r.right));
   if(!rects.length)return {v,s,zones:[],left:v.left,right:v.left+v.w};
   const left=Math.min(...rects.map(r=>r.left))-12,right=Math.max(...rects.map(r=>r.right))+12;
   const rails=[{id:'left',left:v.left+8,right:Math.min(left,v.left+v.w-8)},{id:'right',left:Math.max(right,v.left+8),right:v.left+v.w-8}];
@@ -260,12 +264,14 @@
  }
  function pose(name,duration=0){clearTimeout(guide.poseTimer);root.dataset.pose=motion()?name:'idle';if(duration&&motion())guide.poseTimer=setTimeout(()=>{root.dataset.pose=guide.sleeping?'sleep':'idle';},duration);}
  function mood(name,duration=0){
+  if(DORMANT){guide.mood='happy';root.dataset.emotion='happy';return;}
   if(reading())name='focused';
   if(!['happy','curious','thinking','surprised','focused','sleepy','cheeky','excited'].includes(name))name='happy';
   clearTimeout(guide.moodTimer);guide.mood=name;root.dataset.emotion=name;
   if(duration&&motion())guide.moodTimer=setTimeout(()=>mood(state.active==='nvidia-architectures'?'focused':'happy'),duration);
  }
  function hint(text,force=false){
+  if(DORMANT)return;
   if(guide.open||guide.hidden||document.hidden||(!force&&guide.dialogueDismissed)||(!force&&(state.active==='nvidia-architectures'||Date.now()-guide.lastHint<22000)))return;
   guide.lastHint=Date.now();greeting.textContent=text;greeting.hidden=false;positionGreeting();clearTimeout(guide.greetingTimer);guide.greetingTimer=setTimeout(()=>{greeting.hidden=true;guide.dialogueDismissed=true;},text===BLOG_NOTICE?6500:5000);
  }
@@ -301,6 +307,7 @@
   if(t<1)guide.frame=requestAnimationFrame(flightFrame);else{guide.moving=false;guide.flight=null;pose('landing',850);mood('happy',1800);schedule();lifeSchedule();}
  }
  function flyTo(x,y){
+  if(DORMANT)return;
   if(reading()||guide.inline)return;
   cancelFlight();clearTimeout(guide.timer);const geometry=safety(),p=project(x,y,geometry);if(!p){place(x,y);syncMotion();return;}
   const current=project(guide.x,guide.y,geometry);if(current&&current.zone!==p.zone){if(guide.follow){const same=project(x,y,geometry,current.zone);if(same){x=same.x;y=same.y;return flyTo(x,y);}}if(!popIn('travel',p.zone,p))place(p.x,p.y);return;}
@@ -393,8 +400,8 @@
   speak('That shortcut escaped me. Try a project name, “blog”, “research”, “resume”, or “contact”. Every destination is listed below.');mood('curious',2400);pose('curious',1800);
  }
  function syncMotion(){
-  const wasReading=root.dataset.reading==='true',quiet=reading();root.dataset.reading=String(quiet);root.dataset.suspended=String(document.hidden);if(wasReading&&!quiet)place(guide.x,guide.y);root.dataset.still=String(!effectiveMotion()||quiet||guide.docked);
-  const parked=quiet||guide.docked,travelParked=parked||guide.inline;el('timely-roam').textContent=travelParked?'Roam: paused':guide.roam?'Roam: on':'Roam: off';el('timely-roam').setAttribute('aria-pressed',String(guide.roam));el('timely-roam').disabled=travelParked;
+  const wasReading=root.dataset.reading==='true',quiet=reading();root.dataset.reading=String(quiet);root.dataset.suspended=String(document.hidden);if(wasReading&&!quiet)place(guide.x,guide.y);root.dataset.still=String(DORMANT||!effectiveMotion()||quiet||guide.docked);
+  const parked=DORMANT||quiet||guide.docked,travelParked=parked||guide.inline;el('timely-roam').textContent=travelParked?'Roam: paused':guide.roam?'Roam: on':'Roam: off';el('timely-roam').setAttribute('aria-pressed',String(guide.roam));el('timely-roam').disabled=travelParked;
   el('timely-pause').textContent=quiet?'Reading mode':guide.docked?'Docked guide':effectiveMotion()?'Pause motion':'Motion paused';el('timely-pause').disabled=reduced.matches||parked;
   el('timely-follow').disabled=!effectiveMotion()||travelParked;el('timely-play').disabled=parked;el('timely-fly').disabled=travelParked;el('timely-home').disabled=travelParked;
   if(!motion()){cancelFlight();clearTimeout(guide.lifeTimer);clearTimeout(guide.moodTimer);clearTimeout(guide.followTimer);if(guide.follow)setFollow(false);guide.sleeping=false;mood('happy');el('timely-gaze').setAttribute('transform','translate(0 0)');}else lifeSchedule();schedule();
@@ -402,7 +409,7 @@
  function enterBlog(announce=true){
   syncMotion();if(announce)clearTimeout(guide.greetingTimer);guide.drag=null;guide.sleeping=false;const p=home();place(p.x,p.y);mood('focused');pose('idle');
   if(guide.open)close(false);
-  if(announce){speak(BLOG_NOTICE);hint(BLOG_NOTICE,true);}
+  if(announce&&!DORMANT){speak(BLOG_NOTICE);hint(BLOG_NOTICE,true);}
  }
  function onBlogLinkClick(event){
   const target=event.target?.closest?.('a,button');if(!target)return;
@@ -423,14 +430,14 @@
   const changed=id!==guide.lastPage;guide.lastPage=id;place(guide.x,guide.y);syncMotion();positionDialog();if(changed)popIn('page');schedule();lifeSchedule();
  }
  actor.addEventListener('click',()=>{if(guide.suppressClick){guide.suppressClick=false;return;}guide.open?close():open();});
- actor.addEventListener('pointerdown',event=>{if(reading()||guide.inline||(event.button!==0&&event.button!==undefined))return;activity();if(guide.follow)setFollow(false);cancelFlight();clearTimeout(guide.timer);guide.drag={id:event.pointerId,x:event.clientX,y:event.clientY,startX:guide.x,startY:guide.y,moved:false};actor.setPointerCapture?.(event.pointerId);});
+ actor.addEventListener('pointerdown',event=>{if(DORMANT||reading()||guide.inline||(event.button!==0&&event.button!==undefined))return;activity();if(guide.follow)setFollow(false);cancelFlight();clearTimeout(guide.timer);guide.drag={id:event.pointerId,x:event.clientX,y:event.clientY,startX:guide.x,startY:guide.y,moved:false};actor.setPointerCapture?.(event.pointerId);});
  actor.addEventListener('pointermove',event=>{const d=guide.drag;if(!d||d.id!==event.pointerId)return;const dx=event.clientX-d.x,dy=event.clientY-d.y;if(Math.hypot(dx,dy)>5)d.moved=true;if(d.moved){mood('surprised');pose('dragging');greeting.hidden=true;place(d.startX+dx,d.startY+dy);positionDialog();}});
  function release(event){if(!guide.drag)return;guide.suppressClick=guide.drag.moved;const moved=guide.drag.moved;guide.drag=null;actor.releasePointerCapture?.(event.pointerId);mood(moved?'surprised':'happy',1600);pose(moved?'landing':'wave',1100);schedule();lifeSchedule();}
  actor.addEventListener('pointerup',release);actor.addEventListener('pointercancel',event=>{release(event);guide.suppressClick=false;});
  actor.addEventListener('pointerenter',()=>{activity();guide.hover=true;cancelFlight();clearTimeout(guide.timer);mood('curious',2200);pose('curious',1600);});
  actor.addEventListener('pointerleave',()=>{guide.hover=false;schedule();lifeSchedule();});
  actor.addEventListener('focus',()=>{guide.focus=true;cancelFlight();clearTimeout(guide.timer);});actor.addEventListener('blur',()=>{guide.focus=false;schedule();});
- actor.addEventListener('keydown',event=>{if(reading())return;const delta={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]}[event.key];if(delta){event.preventDefault();cancelFlight();place(guide.x+delta[0],guide.y+delta[1]);positionDialog();}if(event.key==='Home'){event.preventDefault();dock();}});
+ actor.addEventListener('keydown',event=>{if(DORMANT||reading())return;const delta={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]}[event.key];if(delta){event.preventDefault();cancelFlight();place(guide.x+delta[0],guide.y+delta[1]);positionDialog();}if(event.key==='Home'){event.preventDefault();dock();}});
  el('timely-close').addEventListener('click',()=>close());greeting.addEventListener('click',()=>open());
  el('timely-restore').addEventListener('click',()=>{guide.hidden=false;savePref('timely-hidden','no');dock();open();});
  el('timely-hide').addEventListener('click',hide);
@@ -467,7 +474,7 @@
  if(reading())enterBlog(true);else{
  speak(readPref('timely-met')==='yes'?'Explore projects, research, and writing. Choose a section or type a destination.':'Explore projects, research, and writing. Choose a section or type a destination.');
  guide.visited.add(state.active);lifeSchedule();
- if(!guide.hidden&&readPref('timely-met')!=='yes'){
+ if(!DORMANT&&!guide.hidden&&readPref('timely-met')!=='yes'){
   greeting.hidden=false;savePref('timely-met','yes');
   if(!motion())pose('idle');
   guide.greetingTimer=setTimeout(()=>{greeting.hidden=true;guide.dialogueDismissed=true;},5000);

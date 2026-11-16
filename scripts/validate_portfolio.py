@@ -98,7 +98,7 @@ def validate(root):
     assert len(re.findall(r"'[^']+'", effects)) == 6, 'Expected six manifestations'
     assert "name!==lastManifestation" in js, 'Consecutive-repeat guard missing'
     assert "const reading=()=>document.documentElement.dataset.layout==='blog'" in js
-    assert "const motion=()=>effectiveMotion()&&!document.hidden&&!reading()&&!guide.docked" in js
+    assert "const motion=()=>!DORMANT&&effectiveMotion()&&!document.hidden&&!reading()&&!guide.docked" in js
     assert 'materialCompact?1.5:2' in js, 'Mobile rendering budget missing'
     assert 'miss minutes' in text.lower()
     resume = root / 'assets/resume.pdf'
