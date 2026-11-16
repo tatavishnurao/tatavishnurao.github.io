@@ -383,6 +383,54 @@
 
 #timely-companion[data-dormant=true]{--timely-size:82px!important}
 
+/* Shared reading scale, limited to About, the project index and project routes. */
+:root[data-typography=reading]{
+ --type-title:2.125rem;
+ --type-section:1.3125rem;
+ --type-lead:1.125rem;
+ --type-body:1rem;
+ --type-detail:.875rem;
+ --type-regular:400;
+ --type-medium:500;
+ --type-leading:1.6;
+ --type-measure:72ch;
+ --type-secondary:color-mix(in srgb,var(--fg) 80%,var(--bg));
+}
+:root[data-typography=reading] #content{font-size:var(--type-body);line-height:var(--type-leading)}
+:root[data-typography=reading] #content :is(h1,.project-title){font-size:var(--type-title);font-weight:var(--type-medium);line-height:1.25;letter-spacing:-.03em;margin-bottom:1.5rem}
+:root[data-typography=reading] #content :is(h2,h3,.page-directory strong){font-size:var(--type-section);font-weight:var(--type-medium);line-height:1.4;letter-spacing:0}
+:root[data-typography=reading] #content .lead{font-size:var(--type-lead);font-weight:var(--type-medium);line-height:var(--type-leading);max-width:var(--type-measure);margin-bottom:1.5rem}
+:root[data-typography=reading] #content :is(.bio,.scope,.quote,.facts){font-size:var(--type-body);font-weight:var(--type-regular);line-height:var(--type-leading);color:var(--fg);max-width:var(--type-measure);margin-bottom:1.5rem}
+:root[data-typography=reading] #content .scope{padding-left:1rem;margin-top:1.5rem}
+:root[data-typography=reading] #content .facts{grid-template-columns:7.5rem minmax(0,1fr);gap:.5rem 1rem}
+:root[data-typography=reading] #content :is(.tags,.project-stack,.tag,.resources,.prompt,.eyebrow,.tab-title,.path-crumb,.gallery-bar,.gallery-bottom,.view-large,.page-directory small,.portrait-controls,.portrait-controls button,.portrait-controls span,.plate-label,.plate-bottom,.plate-identity .plate-caption){font-size:var(--type-detail);font-weight:var(--type-regular);line-height:var(--type-leading)}
+:root[data-typography=reading] #content :is(.prompt,.tab-title,.path-crumb,.eyebrow,.gallery-bar,.gallery-bottom,.portrait-controls span,.plate-label,.plate-bottom,.plate-identity .plate-caption){color:var(--type-secondary)}
+:root[data-typography=reading] #content .prompt{margin:1.5rem 0 .75rem;overflow-wrap:anywhere}
+:root[data-typography=reading] #content :is(.tags,.project-stack){margin:1.25rem 0;gap:.5rem 1rem;overflow-wrap:anywhere}
+:root[data-typography=reading] #content :is(.tab-title,.gallery-bar,.gallery-bottom,.resources,.plate-label,.plate-bottom){flex-wrap:wrap;gap:.5rem 1rem;overflow-wrap:anywhere}
+:root[data-typography=reading] #content :is(.tab-title,.gallery-bar,.gallery-bottom)>*{min-width:0;max-width:100%}
+:root[data-typography=reading] #content .page-directory{gap:.75rem}
+:root[data-typography=reading] #content .page-directory button{padding:1rem}
+:root[data-typography=reading] #content :is(.view-large,.portrait-controls button){min-height:2.75rem;padding:.5rem .75rem}
+:root[data-typography=reading] #content .portrait-controls{gap:.5rem .75rem}
+:root[data-typography=reading] .terminal-dock :is(.terminal-heading,.terminal-heading>span:last-child,.command-output,.command-results,.cmdline button,.terminal-hints,.terminal-hints button,.terminal-hints span,.touch-terminal-tools button){font-size:var(--type-detail);font-weight:var(--type-regular);line-height:var(--type-leading)}
+:root[data-typography=reading] .terminal-dock :is(.terminal-heading,.terminal-heading>span:last-child,.command-output,.terminal-hints){color:var(--type-secondary)}
+:root[data-typography=reading] .terminal-dock .cmdline input{font-size:var(--type-body);line-height:var(--type-leading)}
+:root[data-typography=reading] .terminal-dock input::placeholder{color:var(--type-secondary);opacity:1}
+:root[data-typography=reading] .terminal-dock .cmdline button{min-height:2.75rem}
+:root[data-typography=reading] .terminal-dock .terminal-heading{flex-wrap:wrap}
+:root[data-typography=reading] #media-dialog :is(.dialog-head,.dialog-head h2,.dialog-caption,.dialog-close,.media-tools button){font-size:var(--type-detail);font-weight:var(--type-regular);line-height:var(--type-leading);color:var(--fg)}
+:root[data-typography=reading] #content .page-directory small{color:var(--type-secondary)}
+:root[data-typography=reading] #content .portrait-controls button[aria-pressed=true]{color:var(--fg)}
+@media(max-width:720px), (max-width:899px) and (orientation:landscape), (pointer:coarse) and (max-width:1080px){
+ :root[data-typography=reading]{--type-title:1.75rem}
+ :root[data-typography=reading] #content .facts{grid-template-columns:6rem minmax(0,1fr);gap:.5rem .75rem}
+ :root[data-typography=reading] #content .plate-label{display:block}
+ :root[data-typography=reading] #content .plate-label>span{display:block}
+ :root[data-typography=reading] #content .plate-bottom{right:10px;left:10px;gap:.25rem .75rem}
+ :root[data-typography=reading] #content .portrait-controls span{margin-left:0;width:100%}
+}
+
 </style></head><body>
 <a href="#content" class="skip">Skip to content</a>
 <div class="frame">
@@ -511,7 +559,7 @@ function syncPrimaryNavigation(){
 }
 function validView(id){if(id==='writing'||id==='notes'||id==='blog')id='blogs';return VIEWS.some(v=>v.id===id)?id:'about';}
 function fromHash(){try{return validView(decodeURIComponent(location.hash.slice(1)));}catch(error){return 'about';}}
-function select(id,history=true){const previousLayout=document.documentElement.dataset.layout;finishTyping();id=validView(id);if(history&&id!==state.active){navTrail.push(state.active);if(navTrail.length>50)navTrail.shift();}if($('media-dialog').open)$('media-dialog').close();state.active=id;document.documentElement.dataset.layout=['blogs','nvidia-architectures'].includes(id)?'blog':'portfolio';syncPrimaryNavigation();document.documentElement.dataset.terminal='closed';const p=PROJECTS.find(p=>p.id===id);$('content').innerHTML=p?projectHTML(p):id==='blogs'?blogsHTML():id==='nvidia-architectures'?nvidiaBlogHTML():id==='stack'?stackHTML():id==='about'?aboutHTML():extraPageHTML(id);$('content').scrollTop=0;if(document.documentElement.dataset.layout==='blog'||previousLayout==='blog')window.scrollTo({top:0,behavior:'auto'});$('terminal-path').textContent='vishnu@dev '+PATHS[id];renderWheel();$('status-view').textContent=p?p.title.toUpperCase():id==='about'?'WHOAMI':id.toUpperCase()+'/';$('announcement').textContent=(p?.title||id)+' selected';if(history&&location.hash!=='#'+id)location.hash=id;resizeCanvases();portraitBirth=motionClock;lastPortraitPhase='';syncPortraitControls();drawStatic();startEntrance();if(previousLayout!==document.documentElement.dataset.layout)renderMotion();window.Timely?.onNavigate(id);}
+function select(id,history=true){const previousLayout=document.documentElement.dataset.layout;finishTyping();id=validView(id);if(history&&id!==state.active){navTrail.push(state.active);if(navTrail.length>50)navTrail.shift();}if($('media-dialog').open)$('media-dialog').close();state.active=id;document.documentElement.dataset.typography=(id==='about'||id==='projects'||PROJECTS.some(p=>p.id===id))?'reading':'';document.documentElement.dataset.layout=['blogs','nvidia-architectures'].includes(id)?'blog':'portfolio';syncPrimaryNavigation();document.documentElement.dataset.terminal='closed';const p=PROJECTS.find(p=>p.id===id);$('content').innerHTML=p?projectHTML(p):id==='blogs'?blogsHTML():id==='nvidia-architectures'?nvidiaBlogHTML():id==='stack'?stackHTML():id==='about'?aboutHTML():extraPageHTML(id);$('content').scrollTop=0;if(document.documentElement.dataset.layout==='blog'||previousLayout==='blog')window.scrollTo({top:0,behavior:'auto'});$('terminal-path').textContent='vishnu@dev '+PATHS[id];renderWheel();$('status-view').textContent=p?p.title.toUpperCase():id==='about'?'WHOAMI':id.toUpperCase()+'/';$('announcement').textContent=(p?.title||id)+' selected';if(history&&location.hash!=='#'+id)location.hash=id;resizeCanvases();portraitBirth=motionClock;lastPortraitPhase='';syncPortraitControls();drawStatic();startEntrance();if(previousLayout!==document.documentElement.dataset.layout)renderMotion();window.Timely?.onNavigate(id);}
 function move(delta,focus=true){const i=VIEWS.findIndex(v=>v.id===state.active);select(VIEWS[(i+delta+VIEWS.length)%VIEWS.length].id);if(focus)$('wheel').querySelector(`[data-view="${state.active}"]`).focus();}
 
 function showImage(src,title,caption,alt){
