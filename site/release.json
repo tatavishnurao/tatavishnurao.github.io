@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "release_id": "443c4ec09cc75d7aea34f4f5a5b4a50c2653d7bb778a569da471fe09146736cb",
+  "release_id": "d09dad23fb757c3d0defa1129c3f09d3d3a5be2d8a99e9493fb464a039cd5f7a",
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "404.html": "85d01ab383f41e6e7f2f5ebeabdf89c9b9d348e81e88478d26a3fdf700024f98",
@@ -11,6 +11,7 @@
     "assets/blogs/nvidia-civo-rack-model.png": "24b59706970f8057e4f3d5780a9186fb022e77d3db3956b591e93e96555a90f2",
     "assets/blogs/nvidia-closing-photo.png": "5352439a22d134b253d7f2bd0388f46bcb2f6a3666b67aa22f6d7a906888f570",
     "assets/blogs/nvidia-consumer-enterprise-chart.png": "a7d1884a844dc597fcdce5b5ee73328d68816be8f07094c01cca1429c287db0b",
+    "assets/blogs/nvidia-cover-clear.png": "5a7c5677dbe4dfc3d69916ba2af33c554722bc4d7f35daaf6d983b79f1fa64cd",
     "assets/blogs/nvidia-cover.png": "e7082d559df502ac999836741fa541fbfca30b982d9e4784902c6e5ef2e95e26",
     "assets/blogs/nvidia-hopper-h100.png": "9774a8dd15efbb74783e3faa081f71f5d897f91088bfe0fce5dbd337f96ecc83",
     "assets/blogs/nvidia-pascal-dgx1.png": "d512171d9afc71f68cbe3dfcf2d7fd97159177f6bf0017162a5b5505bf3c2311",
@@ -56,7 +57,7 @@
     "images/projects/ml-systems.svg": "0da21b83cb33b4c0faa5bf44dd49df6729c34b453eae3f50a32842025f9b2042",
     "images/projects/signalflow.svg": "a8cbcceb4ca59cb78dc549c8d516d3ec86407e7444f1a0ac34c958ecd4828758",
     "images/v_ghibli_imresizer.jpg": "65cfda0efaa528c936158752615a636ae465d8f019b22b85ff2a4b08462ab735",
-    "index.html": "3244785c7bfa6b8550af2b813ae6045f7811fe60a3078ec9fa1dba418b614d96",
+    "index.html": "5d748f3cd214ba0de580c1bef7e2da100c14f8db1812eb959ede27ee06f32e4b",
     "projects/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
     "projects/realkv/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
     "projects/realkv-serve/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
