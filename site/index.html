@@ -391,6 +391,10 @@
  :root:not([data-layout=blog]) .wheel{top:0}
  :root:not([data-layout=blog]) .reading{padding-top:0}
 }
+/* Bias the whole notebook left only when its 1440px desktop window has spare room. */
+@media(min-width:1441px){
+ :root:not([data-layout=blog]) .frame{position:relative;left:clamp(-48px,calc((1440px - 100vw) * .1),0px)}
+}
 </style></head><body>
 <a href="#content" class="skip">Skip to content</a>
 <div class="frame">
