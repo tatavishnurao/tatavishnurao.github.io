@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "release_id": "a4b00b21de615363fe2a0059fbedb6369eb92c8e20f54dda907c02ec1c123a0e",
+  "release_id": "443c4ec09cc75d7aea34f4f5a5b4a50c2653d7bb778a569da471fe09146736cb",
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "404.html": "85d01ab383f41e6e7f2f5ebeabdf89c9b9d348e81e88478d26a3fdf700024f98",
@@ -39,7 +39,7 @@
     "assets/projects/tailbench-architecture.svg": "0b9b7938b30c8831b58ebd8be055467749c75ff13129df7918427979ebb2cd23",
     "assets/resume.pdf": "4bd4aac1609256e3bd1b969cfeee231b67a2f2eaea5697e738292f7510574447",
     "assets/timely.css": "9e2bbc87c7fbe53f1c2a7f7b7d4d05c00e2e0e35cc7a47d6cf4d2835fc55cde2",
-    "assets/timely.js": "51ba727d6687a9c169fc952c8fdda9f0c727faf869fe3f3a2ed50e6aed8ab938",
+    "assets/timely.js": "a4b1771f5784d1798e95f78075e0a73b06983610cf03f0753d45fca25468c638",
     "content/blog.ts": "980a09e0b6f205fa139d0214ad9d0e8d715b6ca58905f207a6066e5a6770409f",
     "content/notes/real-time-log-mel-rust.md": "2cb0afbaebd76497f05bcb2e193175d8de44753281198438db031c02188f981a",
     "content/notes/tailbench-evidence.md": "fba5d5af6f462f4f0243ecdbc9bd23469f99d32cc31c1fbd0be1ab60a3b9f38d",
@@ -56,7 +56,7 @@
     "images/projects/ml-systems.svg": "0da21b83cb33b4c0faa5bf44dd49df6729c34b453eae3f50a32842025f9b2042",
     "images/projects/signalflow.svg": "a8cbcceb4ca59cb78dc549c8d516d3ec86407e7444f1a0ac34c958ecd4828758",
     "images/v_ghibli_imresizer.jpg": "65cfda0efaa528c936158752615a636ae465d8f019b22b85ff2a4b08462ab735",
-    "index.html": "ede8c5ad7411cd973b9c725371725795159eaec076a4adf899856c95d767726f",
+    "index.html": "3244785c7bfa6b8550af2b813ae6045f7811fe60a3078ec9fa1dba418b614d96",
     "projects/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
     "projects/realkv/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",
     "projects/realkv-serve/index.html": "8f30a9c159def550e00fa695b9b459d85de6a65a6facf007abdecc7efb8a2f97",

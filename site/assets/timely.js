@@ -1,6 +1,8 @@
 'use strict';
 // All answers and destinations are local portfolio content. No remote model calls.
 (()=>{
+ // The markup switch also removes every reserved row and launcher before first paint.
+ if(document.documentElement.dataset.companion==='off')return;
  const root=document.getElementById('timely-companion');if(!root)return;
  const el=id=>document.getElementById(id),actor=el('timely-actor'),dialog=el('timely-dialog'),greeting=el('timely-greeting');
  const inlineSlot=el('timely-inline-slot'),overlayParent=root.parentNode;

@@ -19,7 +19,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
           page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
           page.on('response', r => { if (r.url().startsWith(base) && r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
           await page.goto(base);
-          await page.waitForFunction(() => !!window.Timely);
+          await page.waitForFunction(() => document.documentElement.dataset.companion==='off'||!!window.Timely);
           assert.equal(await page.locator('.site-nav a').count(), 6);
           assert.equal(await page.evaluate(() => matchMedia('(pointer:coarse)').matches), coarse);
           for (const route of ['projects', 'tailbench', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent', 'blogs', 'nvidia-architectures', 'contact', 'resume']) {
@@ -38,6 +38,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
           }
           await page.locator('#nav-socials').click();
           await page.waitForURL('**/#contact');
+          await page.waitForFunction(() => document.querySelector('#nav-socials').getAttribute('aria-current') === 'page');
           assert.equal(await page.locator('#nav-socials').getAttribute('aria-current'), 'page');
           assert.ok(await page.locator('#content a[href="mailto:tatavishnurao@gmail.com"]').count());
           // Keyboard project navigation and the terminal stay operational.
@@ -48,7 +49,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
           await page.waitForURL('**/#ctxd');
           // All navigation surfaces share the same ordered project records.
           await page.goto(`${base}/#tailbench`);
-          await page.waitForFunction(() => !!window.Timely);
+          await page.waitForFunction(() => document.documentElement.dataset.companion==='off'||!!window.Timely);
           assert.equal(await page.locator('#content h1').textContent(), 'tailbench');
           assert.equal(await page.locator('#project-count').textContent(), '6 projects');
           assert.deepEqual(await page.evaluate(() => PROJECTS.map(p => p.id)), ['tailbench', 'ctxd', 'dubpatch', 'signalflow', 'glyph', 'latent']);
@@ -73,7 +74,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
           if (width <= 768) assert.ok(await page.locator('#media-viewport').evaluate(el => el.scrollLeft > 0));
           await page.locator('#media-zoom').click();
           assert.equal(await page.locator('#media-zoom').getAttribute('aria-pressed'), 'false');
-          assert.equal(await page.locator('[data-timely-page="tailbench"]').count(), 1);
+          assert.equal(await page.locator('#timely-companion').isVisible(), false);
           await page.keyboard.press('Escape');
           assert.equal(await page.locator('#media-dialog').evaluate(d => d.open), false);
           await page.evaluate(() => select('projects'));
@@ -96,44 +97,16 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
     const page = await context.newPage();
     page.on('pageerror', e => errors.push(String(e)));
     await page.goto(base);
-    await page.waitForFunction(() => !!window.Timely);
-    await page.waitForTimeout(2300);
-    // The companion's data-derived directory also opens the new project.
-    await page.locator('#timely-actor').click();
-    await page.locator('[data-timely-page="tailbench"]').evaluate(button => button.click());
-    await page.waitForURL('**/#tailbench');
-    await page.evaluate(() => Timely.close(false));
-    // Actual activation, real browser timers (not mocked).
-    await page.locator('#timely-actor').click();
-    assert.equal(await page.locator('#timely-dialog').isVisible(), true);
-    await page.waitForTimeout(1550);
-    assert.equal(await page.locator('#timely-dialog').isVisible(), true);
-    await page.waitForTimeout(400);
-    assert.equal(await page.locator('#timely-dialog').isVisible(), false);
-    await page.waitForTimeout(2000);
-    assert.equal(await page.locator('#timely-dialog').isVisible(), false);
-    await page.locator('#timely-actor').press('Enter');
-    assert.equal(await page.locator('#timely-dialog').isVisible(), true);
-    await page.evaluate(() => { Timely.close(false); document.activeElement.blur(); });
-    await page.mouse.move(640, 450);
-    const effects = await page.evaluate(() => {
-      const seen = [], allowed = new Set(['luminous-bridge','wireframe-hourglass','particle-vortex','spiral-singularity','bipolar-jets','stellar-nebula']);
-      for (let i = 0; i < 100; i++) {
-        if (!Timely.popIn('test')) throw Error('Entrance unavailable');
-        const current = document.querySelector('#timely-companion').dataset.manifest;
-        if (!allowed.has(current) || current === seen.at(-1)) throw Error('Invalid/repeated manifestation');
-        seen.push(current);
-      }
-      return [...new Set(seen)];
-    });
-    assert.equal(effects.length, 6);
-    await page.locator('#motion-button').click();
-    assert.equal(await page.locator('html').getAttribute('data-motion'), 'off');
-    assert.equal(await page.locator('#timely-companion').getAttribute('data-still'), 'true');
+    await page.waitForFunction(() => document.documentElement.dataset.companion==='off'||!!window.Timely);
+    for (const id of ['timely-companion', 'timely-restore', 'timely-notice-slot']) {
+      assert.equal(await page.locator('#' + id).isVisible(), false);
+      assert.equal(await page.locator('#' + id).evaluate(e => e.getBoundingClientRect().height), 0);
+    }
+    assert.equal(await page.evaluate(() => typeof window.Timely), 'undefined');
     await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.reload();
     await page.waitForFunction(() => document.querySelector('#motion-button').disabled);
     assert.equal(await page.locator('#motion-button').isDisabled(), true);
-    assert.equal(await page.evaluate(() => Timely.popIn('test')), false);
     // Legacy redirects and original PDF bytes are exercised over HTTP.
     for (const [path, hash] of [['projects/', '#projects'], ['research/', '#research'], ['writing/', '#blogs'], ['projects/realkv-serve/', '#projects'], ['projects/sochdb/', '#projects']]) {
       await page.goto(`${base}/${path}`);
@@ -145,7 +118,7 @@ const base = process.env.PORTFOLIO_URL || 'http://127.0.0.1:8000';
     const note = await context.request.get(`${base}/content/notes/real-time-log-mel-rust.md`);
     assert.equal(note.status(), 200);
     assert.deepEqual(errors, []);
-    console.log(JSON.stringify({ status: 'PASS', viewports: results, effects, consoleErrors: errors, dialogue: 'open at 1550ms, closed by 1950ms, activation required', pending: ['physical-device visual review', 'actual hidden-tab lifecycle', 'drag/swipe gesture review'] }, null, 2));
+    console.log(JSON.stringify({ status: 'PASS', viewports: results, companion: 'hidden without reserved space', consoleErrors: errors, pending: ['physical-device visual review', 'actual hidden-tab lifecycle', 'drag/swipe gesture review'] }, null, 2));
     await context.close();
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

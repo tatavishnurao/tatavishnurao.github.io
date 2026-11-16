@@ -13,15 +13,19 @@ const output = process.env.CAPTURE_DIR || '/tmp/portfolio-review';
   await context.addInitScript(()=>{localStorage.setItem('vvr-v2-motion','on');localStorage.setItem('vvr-v2-timely-roam','on');});
   const page=await context.newPage(); page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)}); page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
   for(const route of ['tailbench','nvidia-architectures','tailbench']){
-   await page.goto(`${base}/#${route}`); await page.waitForFunction(()=>!!window.Timely);
+   await page.goto(`${base}/#${route}`); await page.waitForFunction(()=>document.documentElement.dataset.companion==='off'||!!window.Timely);
    await page.evaluate(()=>finishTyping());
    assert.equal(await page.locator('#spine,#eye,#eye-mobile,#eye-coords,#tree-button').count(),0);
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
-   assert(await page.locator('#timely-actor').isVisible());
-   const snapshot=()=>page.evaluate(()=>({transform:document.querySelector('#timely-actor').style.transform,gaze:document.querySelector('#timely-gaze').getAttribute('transform'),moving:Timely.getState().moving,animations:document.querySelector('#timely-companion').getAnimations({subtree:true}).filter(a=>a.playState==='running').length}));
-   const before=await snapshot();await page.mouse.move(width/2,height/2);await page.waitForTimeout(2200);assert.deepEqual(await snapshot(),before);assert.equal(before.animations,0);assert.equal(before.moving,false);
-   assert.equal(await page.locator('#timely-greeting').isVisible(),false);
-   await page.locator('#timely-actor').click();assert.equal(await page.locator('#timely-companion').getAttribute('data-open'),'true');await page.locator('#timely-close').click();
+   for(const id of ['timely-companion','timely-actor','timely-restore','timely-notice-slot']){
+    assert.equal(await page.locator('#'+id).isVisible(),false);
+   }
+   assert.equal(await page.locator('#timely-notice-slot').evaluate(e=>e.getBoundingClientRect().height),0);
+   if(route==='tailbench'&&(width>=1081||(width>=900&&width>height&&!touch))){
+    const gap=await page.evaluate(()=>document.querySelector('.stage').getBoundingClientRect().top-document.querySelector('.site-nav').getBoundingClientRect().bottom);
+    assert(gap>=32&&gap<=40);
+    assert.equal(await page.evaluate(()=>document.querySelector('.wheel').getBoundingClientRect().top-document.querySelector('#content').getBoundingClientRect().top),0);
+   }
    if(route==='nvidia-architectures'){
     const math=page.locator('.blog-equation math');assert.equal(await math.textContent(),'x=y×z+c');await math.scrollIntoViewIfNeeded();assert(await math.evaluate(e=>getComputedStyle(e).display.includes('math')&&e.getBoundingClientRect().height>0));
     await page.screenshot({path:`${output}/equation-${width}.png`});

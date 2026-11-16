@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="blackmoney" data-motion="on"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Tata Vishnu Rao — GPU computing, LLM inference, distributed systems and robotics. A HANCORE-inspired portfolio design study."><title>Vishnu — Systems Notebook / V2 Motion Study</title><style>
+<html lang="en" data-companion="off" data-theme="blackmoney" data-motion="on"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Tata Vishnu Rao — GPU computing, LLM inference, distributed systems and robotics. A HANCORE-inspired portfolio design study."><title>Vishnu — Systems Notebook / V2 Motion Study</title><style>
 :root{color-scheme:dark;--bg:#0c0c0c;--fg:#d8d4b4;--muted:#969685;--dim:#717169;--accent:#dd5670;--green:#88c6a3;--line:rgba(216,212,180,.22);--panel:#101111;--soft:rgba(216,212,180,.035);--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
 :root[data-theme="solitude"]{--bg:#101315;--fg:#cacccc;--muted:#9da3a5;--dim:#697378;--accent:#d9dbdc;--green:#aeb8ad;--line:rgba(202,204,204,.23);--panel:#14191c;--soft:rgba(202,204,204,.04)}
 :root[data-theme="paper"]{color-scheme:light;--bg:#e9e7df;--fg:#343833;--muted:#64665e;--dim:#73776e;--accent:#a6443e;--green:#466e56;--line:rgba(52,56,51,.25);--panel:#f1efe7;--soft:rgba(52,56,51,.035)}
@@ -384,6 +384,13 @@
 
 #timely-companion[data-dormant=true]{--timely-size:82px!important}
 
+/* Re-enable the retained companion by changing data-companion to on. */
+:root[data-companion=off] :is(#timely-companion,#timely-restore,#timely-notice-slot){display:none!important}
+@media(min-width:1081px), (min-width:900px) and (orientation:landscape) and (pointer:fine){
+ :root:not([data-layout=blog]) .header{margin-bottom:36px}
+ :root:not([data-layout=blog]) .wheel{top:0}
+ :root:not([data-layout=blog]) .reading{padding-top:0}
+}
 </style></head><body>
 <a href="#content" class="skip">Skip to content</a>
 <div class="frame">
