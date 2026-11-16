@@ -321,8 +321,7 @@
 #timely-actor .timely-question,#timely-actor .timely-surprise{font:15px var(--mono);fill:var(--green);stroke:none}
 #timely-play{color:var(--green)!important}
 #timely-follow[aria-pressed=true]{color:var(--green)}
-/* Companion space is outside the reading/navigation columns. */
-@media(min-width:1280px){:root:not([data-layout=blog]) .frame{width:min(1180px,calc(100% - 320px))}}
+/* The notebook is centered as a unit; the dormant guide uses its inline slot. */
 .header{height:auto;min-height:30px;flex-wrap:wrap;margin-bottom:12px}
 #timely-notice-slot{min-height:56px;margin-bottom:4px}
 #timely-notice-slot #timely-greeting{position:static;max-width:100%;width:fit-content;font:12px/1.5 var(--mono);padding:8px 12px;box-shadow:none}
@@ -369,7 +368,9 @@
 @media(max-width:1080px){.site-nav{flex-basis:100%;margin-left:0;column-gap:18px}}
 /* Reading gains the retired decorations' columns only where there is room. */
 @media(min-width:1081px), (min-width:900px) and (orientation:landscape) and (pointer:fine){
- :root:not([data-layout=blog]) .frame{width:min(1440px,100%);max-width:none}
+ :root:not([data-layout=blog]) .frame{width:min(1440px,100%);max-width:none;margin-inline:auto}
+ /* Keep the dock and status bar at the window edges; inset only reading content. */
+ :root[data-reading-inset=true] .reading{padding-inline:5%}
  .stage{grid-template-columns:200px minmax(0,1fr);gap:24px}
  .aside{grid-column:2;display:flex;align-items:center;flex-wrap:wrap;gap:8px 20px;padding:0}
  .aside p{margin:0}.aside-line{margin:0}
@@ -511,7 +512,7 @@ function syncPrimaryNavigation(){
 }
 function validView(id){if(id==='writing'||id==='notes'||id==='blog')id='blogs';return VIEWS.some(v=>v.id===id)?id:'about';}
 function fromHash(){try{return validView(decodeURIComponent(location.hash.slice(1)));}catch(error){return 'about';}}
-function select(id,history=true){const previousLayout=document.documentElement.dataset.layout;finishTyping();id=validView(id);if(history&&id!==state.active){navTrail.push(state.active);if(navTrail.length>50)navTrail.shift();}if($('media-dialog').open)$('media-dialog').close();state.active=id;document.documentElement.dataset.layout=['blogs','nvidia-architectures'].includes(id)?'blog':'portfolio';syncPrimaryNavigation();document.documentElement.dataset.terminal='closed';const p=PROJECTS.find(p=>p.id===id);$('content').innerHTML=p?projectHTML(p):id==='blogs'?blogsHTML():id==='nvidia-architectures'?nvidiaBlogHTML():id==='stack'?stackHTML():id==='about'?aboutHTML():extraPageHTML(id);$('content').scrollTop=0;if(document.documentElement.dataset.layout==='blog'||previousLayout==='blog')window.scrollTo({top:0,behavior:'auto'});$('terminal-path').textContent='vishnu@dev '+PATHS[id];renderWheel();$('status-view').textContent=p?p.title.toUpperCase():id==='about'?'WHOAMI':id.toUpperCase()+'/';$('announcement').textContent=(p?.title||id)+' selected';if(history&&location.hash!=='#'+id)location.hash=id;resizeCanvases();portraitBirth=motionClock;lastPortraitPhase='';syncPortraitControls();drawStatic();startEntrance();if(previousLayout!==document.documentElement.dataset.layout)renderMotion();window.Timely?.onNavigate(id);}
+function select(id,history=true){const previousLayout=document.documentElement.dataset.layout;finishTyping();id=validView(id);if(history&&id!==state.active){navTrail.push(state.active);if(navTrail.length>50)navTrail.shift();}if($('media-dialog').open)$('media-dialog').close();state.active=id;document.documentElement.dataset.readingInset=String(id==='about'||id==='projects'||PROJECTS.some(p=>p.id===id));document.documentElement.dataset.layout=['blogs','nvidia-architectures'].includes(id)?'blog':'portfolio';syncPrimaryNavigation();document.documentElement.dataset.terminal='closed';const p=PROJECTS.find(p=>p.id===id);$('content').innerHTML=p?projectHTML(p):id==='blogs'?blogsHTML():id==='nvidia-architectures'?nvidiaBlogHTML():id==='stack'?stackHTML():id==='about'?aboutHTML():extraPageHTML(id);$('content').scrollTop=0;if(document.documentElement.dataset.layout==='blog'||previousLayout==='blog')window.scrollTo({top:0,behavior:'auto'});$('terminal-path').textContent='vishnu@dev '+PATHS[id];renderWheel();$('status-view').textContent=p?p.title.toUpperCase():id==='about'?'WHOAMI':id.toUpperCase()+'/';$('announcement').textContent=(p?.title||id)+' selected';if(history&&location.hash!=='#'+id)location.hash=id;resizeCanvases();portraitBirth=motionClock;lastPortraitPhase='';syncPortraitControls();drawStatic();startEntrance();if(previousLayout!==document.documentElement.dataset.layout)renderMotion();window.Timely?.onNavigate(id);}
 function move(delta,focus=true){const i=VIEWS.findIndex(v=>v.id===state.active);select(VIEWS[(i+delta+VIEWS.length)%VIEWS.length].id);if(focus)$('wheel').querySelector(`[data-view="${state.active}"]`).focus();}
 
 function showImage(src,title,caption,alt){
